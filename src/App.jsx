@@ -6,6 +6,7 @@ import Signup from "./components/auth/Signup";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import VerifyEmail from "./components/auth/VerifyEmail";
 import Navbar from "./components/Layout/Navbar";
+import Footer from "./components/Layout/Footer";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Auth Routes */}
-        <Route path="/login" element={<><Navbar /><Login /></>} />
+        <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
