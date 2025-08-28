@@ -1,33 +1,81 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Slider from "react-slick";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./Auth.css";
 
-export default function ForgotPassword() {
-  const carouselImages = ["/1.jpeg", "/2.jpeg", "/3.jpeg"]; // adjust paths
+const images = ["/1.jpeg", "/2.jpeg", "/3.jpeg"]; // Update with correct paths
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 600,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    arrows: false,
-    fade: true,
+export default function ForgotPassword() {
+  const [current, setCurrent] = useState(0);
+  const length = images.length;
+
+  const nextSlide = () => {
+    setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1));
   };
+
+  const prevSlide = () => {
+    setCurrent((prev) => (prev === 0 ? length - 1 : prev - 1));
+  };
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 4000);
+    return () => clearInterval(interval);
+  }, [current]);
 
   return (
     <div className="auth-split-container fade-in">
+      {/* LEFT PANEL: Carousel */}
       <div className="auth-left-panel">
-        <Slider {...sliderSettings} className="auth-carousel">
-          {carouselImages.map((src, index) => (
-            <div key={index} className="carousel-slide">
-              <img src={src} alt={`Slide ${index}`} />
+        <div className="carousel-container">
+          <button className="nav-btn left" onClick={prevSlide}>
+            <FaChevronLeft />
+          </button>
+
+          <div className="carousel">
+            {images.map((img, index) => {
+              let position = "nextSlide";
+              if (index === current) {
+                position = "activeSlide";
+              } else if (
+                index === current - 1 ||
+                (current === 0 && index === images.length - 1)
+              ) {
+                position = "lastSlide";
+              }
+
+              return (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Slide ${index + 1}`}
+                  className={`slide ${position}`}
+                />
+              );
+            })}
+
+            <div className="phone-frame">
+              <div className="side-mute-switch"></div>
+              <div className="side-button-left"></div>
+              <div className="side-button-right"></div>
+              <div className="phone-frame-capsule">
+                <div className="phone-inner">
+                  <img
+                    src={images[current]}
+                    alt={`Slide ${current + 1}`}
+                    className="carousel-image"
+                  />
+                </div>
+              </div>
             </div>
-          ))}
-        </Slider>
+          </div>
+
+          <button className="nav-btn right" onClick={nextSlide}>
+            <FaChevronRight />
+          </button>
+        </div>
       </div>
 
+      {/* RIGHT PANEL: Forgot Password Form */}
       <div className="auth-right-panel">
         <div className="auth-form-wrapper">
           <div className="auth-logo-circle">🌸</div>
