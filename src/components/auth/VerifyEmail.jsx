@@ -4,7 +4,7 @@ import "./Auth.css";
 
 export default function VerifyEmail() {
   return (
-    <div className="auth-container">
+    <div className="auth-container fade-in">
       <div className="auth-card" role="main" aria-label="Email Verification">
         <div className="auth-logo" aria-hidden="true" />
         <h2>Verify Your Email</h2>

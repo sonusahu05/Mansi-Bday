@@ -17,7 +17,7 @@ fade: true,
 };
 
 return (
-<div className="auth-split-container">
+<div className="auth-split-container fade-in">
 <div className="auth-left-panel">
 <Slider {...sliderSettings} className="auth-carousel">
 {carouselImages.map((src, index) => (
