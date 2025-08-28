@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./Auth.css";
 
-const images = ["/1.jpeg", "/2.jpeg", "/3.jpeg"]; // Add actual image paths
+const images = ["/1.jpeg", "/2.jpeg", "/3.jpeg"]; // Update with correct paths
 
 export default function Login() {
   const [current, setCurrent] = useState(0);
   const length = images.length;
 
   const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
+    setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
+    setCurrent((prev) => (prev === 0 ? length - 1 : prev - 1));
   };
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Login() {
 
   return (
     <div className="auth-split-container fade-in">
-      {/* LEFT PANEL: Phone Carousel */}
+      {/* LEFT PANEL: Carousel */}
       <div className="auth-left-panel">
         <div className="carousel-container">
           <button className="nav-btn left" onClick={prevSlide}>
@@ -32,32 +32,39 @@ export default function Login() {
           </button>
 
           <div className="carousel">
+            {images.map((img, index) => {
+              let position = "nextSlide";
+              if (index === current) {
+                position = "activeSlide";
+              } else if (
+                index === current - 1 ||
+                (current === 0 && index === images.length - 1)
+              ) {
+                position = "lastSlide";
+              }
+
+              return (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Slide ${index + 1}`}
+                  className={`slide ${position}`}
+                />
+              );
+            })}
+
+            {/* Phone frame overlays the center image */}
             <div className="phone-frame">
-               <div className="side-mute-switch"></div>
-  <div className="side-button-left"></div>
-  <div className="side-button-right"></div>
+              <div className="side-mute-switch"></div>
+              <div className="side-button-left"></div>
+              <div className="side-button-right"></div>
               <div className="phone-frame-capsule">
                 <div className="phone-inner">
-                  {images.map((img, index) => {
-                    let position = "nextSlide";
-                    if (index === current) {
-                      position = "activeSlide";
-                    } else if (
-                      index === current - 1 ||
-                      (current === 0 && index === images.length - 1)
-                    ) {
-                      position = "lastSlide";
-                    }
-
-                    return (
-                      <img
-                        key={index}
-                        src={img}
-                        alt={`Slide ${index + 1}`}
-                        className={`slide ${position}`}
-                      />
-                    );
-                  })}
+                  <img
+                    src={images[current]}
+                    alt={`Slide ${current + 1}`}
+                    className="carousel-image"
+                  />
                 </div>
               </div>
             </div>
