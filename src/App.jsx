@@ -18,9 +18,9 @@ function App() {
 
         {/* Auth Routes */}
         <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/signup" element={<><Navbar /><Signup /><Footer /></>} />
+        <Route path="/forgot-password" element={<><Navbar /><ForgotPassword /><Footer /></>} />
+        <Route path="/verify-email" element={<><Navbar /><VerifyEmail /><Footer /></>} />
       </Routes>
     </Router>
   );

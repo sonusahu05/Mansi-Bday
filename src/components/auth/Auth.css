@@ -446,3 +446,219 @@
     padding: 1rem 0;
   }
 }
+/* === Carousel Section (Phone-style) === */
+.carousel-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel {
+  position: relative;
+  width: 280px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.slide {
+  position: absolute;
+  transition: all 0.6s ease-in-out;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.activeSlide {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  z-index: 5;
+}
+
+.lastSlide {
+  opacity: 0.7;
+  transform: translateX(-220px) scale(0.8);
+  z-index: 2;
+}
+
+.nextSlide {
+  opacity: 0.7;
+  transform: translateX(220px) scale(0.8);
+  z-index: 2;
+}
+
+/* Phone frame */
+/* Phone frame container styled like iPhone with Dynamic Island */
+.phone-frame {
+  width: 280px;
+  height: 523px;
+  border: 5px solid #000;
+  border-radius: 60px;
+  background-color: #fff;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: visible; /* Allow overflow to show side images */
+  z-index: 20; /* on top of images */
+}
+
+/* Dynamic Island notch container */
+.phone-frame::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 28px;
+  background: black;
+  border-radius: 20px / 50%;
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    0 4px 10px rgba(0, 0, 0, 0.8);
+  z-index: 30; /* above images */
+}
+
+/* Small camera hole on the left side inside the Dynamic Island */
+.phone-frame::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 150px;
+  width: 12px;
+  height: 12px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+  z-index: 12;
+}
+
+/* Left side buttons (volume buttons) */
+.phone-frame .side-button-left {
+  position: absolute;
+  top: 100px;
+  left: -6px; /* outside the border */
+  width: 6px;
+  height: 60px;
+  background: linear-gradient(145deg, #444, #222);
+  border-radius: 20px;
+  box-shadow: inset 2px 2px 4px rgba(255,255,255,0.1), inset -2px -2px 4px rgba(0,0,0,0.7);
+  z-index: 40;
+}
+
+/* Left side mute switch */
+.phone-frame .side-mute-switch {
+  position: absolute;
+  top: 80px;
+  left: -8px;
+  width: 10px;
+  height: 18px;
+  background: linear-gradient(145deg, #333, #111);
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 3px rgba(255,255,255,0.15), inset -2px -2px 3px rgba(0,0,0,0.7);
+  z-index: 41;
+}
+
+/* Right side power button */
+.phone-frame .side-button-right {
+  position: absolute;
+  top: 130px;
+  right: -6px; /* outside the border */
+  width: 8px;
+  height: 90px;
+  background: linear-gradient(145deg, #444, #222);
+  border-radius: 30px;
+  box-shadow: inset 2px 2px 4px rgba(255,255,255,0.1), inset -2px -2px 4px rgba(0,0,0,0.7);
+  z-index: 40;
+}
+
+/* Inner capsule for smooth edges */
+.phone-frame-capsule {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 52px;
+}
+
+/* Images inside the phone */
+.phone-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 32px;
+  display: block;
+}
+
+
+/* Navigation buttons */
+.nav-btn {
+  background: #fff;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.7rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 20; /* increase z-index */
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  user-select: none;
+}
+
+.nav-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Position buttons inside the container */
+.nav-btn.left {
+  position: absolute;
+  left: 10px; /* moved inside */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-btn.right {
+  position: absolute;
+  right: 10px; /* moved inside */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-split-container {
+    flex-direction: column;
+  }
+
+  .auth-left-panel {
+    height: auto;
+    padding: 1rem;
+  }
+
+  .carousel-container {
+    margin-top: 2rem;
+  }
+
+  .carousel {
+    width: 260px;
+    height: 460px;
+  }
+
+  .phone-frame {
+    width: 260px;
+    height: 460px;
+  }
+
+  .nav-btn.left {
+    left: -40px;
+  }
+
+  .nav-btn.right {
+    right: -40px;
+  }
+}
