@@ -1,47 +1,75 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
 import "./Auth.css";
 
 export default function Login() {
-  return (
-    <div className="auth-container">
-      <div className="auth-card" role="main" aria-label="Login Form">
-        <div className="auth-logo" aria-hidden="true" />
-        <h2>Welcome Back</h2>
-        <form>
-          <div className="floating-label">
-            <input
-              type="email"
-              id="email"
-              placeholder=" "
-              required
-              autoComplete="email"
-              aria-describedby="emailHelp"
-            />
-            <label htmlFor="email">Email address</label>
-          </div>
+const carouselImages = ["/1.jpeg", "/2.jpeg", "/3.jpeg"]; // Update paths
 
-          <div className="floating-label">
-            <input
-              type="password"
-              id="password"
-              placeholder=" "
-              required
-              autoComplete="current-password"
-              aria-describedby="passwordHelp"
-            />
-            <label htmlFor="password">Password</label>
-          </div>
+const sliderSettings = {
+dots: true,
+infinite: true,
+speed: 600,
+autoplay: true,
+autoplaySpeed: 4000,
+arrows: false,
+fade: true,
+};
 
-          <button type="submit" aria-label="Log In Button">Log In</button>
-        </form>
+return (
+<div className="auth-split-container">
+<div className="auth-left-panel">
+<Slider {...sliderSettings} className="auth-carousel">
+{carouselImages.map((src, index) => (
+<div key={index} className="carousel-slide">
+<img src={src} alt={`Slide ${index}`} />    
+</div>
+))}
+</Slider>
+</div>
+  <div className="auth-right-panel">
+    <div className="auth-form-wrapper">
+      <div className="auth-logo-circle">🌸</div>
+      <h2>Welcome Back</h2>
 
-        <div className="auth-links">
-          <Link to="/forgot-password">Forgot password?</Link>
-          <span> | </span>
-          <Link to="/signup">Create Account</Link>
+      <form>
+        <div className="auth-field-group">
+          <label htmlFor="email">Email address</label>
+          <input
+            className="auth-input"
+            type="email"
+            id="email"
+            placeholder="your@email.com"
+            required
+          />
         </div>
+
+        <div className="auth-field-group">
+          <label htmlFor="password">Password</label>
+          <input
+            className="auth-input"
+            type="password"
+            id="password"
+            placeholder="••••••••"
+            required
+          />
+        </div>
+
+        <div className="auth-checkbox-row">
+          <Link to="/forgot-password">Forgot password?</Link>
+        </div>
+
+        <button type="submit" className="auth-submit-btn">
+          Log In
+        </button>
+      </form>
+
+      <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+        <span style={{ color: "#ccc" }}>Don't have an account?</span>{" "}
+        <Link to="/signup">Create one</Link>
       </div>
     </div>
-  );
+  </div>
+</div>
+);
 }

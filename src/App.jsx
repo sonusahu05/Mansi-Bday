@@ -1,13 +1,17 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import VerifyEmail from "./components/auth/VerifyEmail";
 
+
 function App() {
   return (
     <Router>
       <Routes>
+
         {/* Default route */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
