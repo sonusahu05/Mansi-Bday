@@ -1,6 +1,9 @@
 /* Soft subtle background */
+/* Signup Page Styling */
+
+/* Full-height background */
 .auth-container {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,6 +11,7 @@
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   animation: fadeInBg 1.5s ease forwards;
+  overflow: hidden;
 }
 
 @keyframes fadeInBg {
@@ -15,17 +19,19 @@
   to { opacity: 1; }
 }
 
-/* Card styling */
+/* Signup card */
 .auth-card {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 12px 24px rgba(100, 116, 139, 0.15);
-  padding: 3rem 2.5rem 2.5rem;
+  padding: 2.5rem 2rem;
   max-width: 400px;
   width: 100%;
   color: #334e68;
+  overflow-y: auto;
+  max-height: 90vh;
+  box-sizing: border-box;
   position: relative;
-  overflow: hidden;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeSlideIn 0.8s ease forwards;
@@ -42,13 +48,12 @@
 /* Logo placeholder */
 .auth-logo {
   display: block;
-  margin: 0 auto 1.8rem;
+  margin: 0 auto 1.5rem;
   width: 80px;
   height: 80px;
   background: #627d98;
   border-radius: 50%;
   box-shadow: 0 0 14px #627d98aa;
-  position: relative;
   animation: logoPulse 2.5s ease-in-out infinite;
 }
 
@@ -65,45 +70,51 @@
 .auth-card h2 {
   font-weight: 600;
   font-size: 2rem;
-  margin-bottom: 1.8rem;
+  margin-bottom: 2rem;
   text-align: center;
   color: #102a43;
 }
 
-/* Floating label container */
+/* Form grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.2rem;
+  align-items: center;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Input wrapper */
 .floating-label {
   position: relative;
-  margin-bottom: 1.8rem;
+  margin-bottom: 0.6rem;
   opacity: 0;
   animation: fadeSlideIn 0.7s ease forwards;
 }
 
-.floating-label:nth-child(1) {
-  animation-delay: 0.6s;
-}
-.floating-label:nth-child(2) {
-  animation-delay: 0.8s;
-}
+.floating-label:nth-child(1) { animation-delay: 0.6s; }
+.floating-label:nth-child(2) { animation-delay: 0.8s; }
 
-/* Inputs */
+/* Input styles */
 .floating-label input {
   width: 100%;
   border: 1.8px solid #bcccdc;
   border-radius: 10px;
   padding: 1.2rem 1rem 0.5rem;
   font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   background: transparent;
   color: #334e68;
   font-weight: 500;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-/* .floating-label input::placeholder {
-  color: transparent;
-} */
- .floating-label input::placeholder {
-  color: #a3b1c2; /* Soft blue-gray */
+.floating-label input::placeholder {
+  color: #a3b1c2;
   opacity: 1;
 }
 
@@ -113,7 +124,7 @@
   transform: scale(1.02);
 }
 
-/* Label styles */
+/* Label floating behavior */
 .floating-label label {
   position: absolute;
   left: 1rem;
@@ -126,7 +137,6 @@
   padding: 0 0.25rem;
 }
 
-/* When input is focused or filled */
 .floating-label input:focus + label,
 .floating-label input:not(:placeholder-shown) + label {
   top: 0.1rem;
@@ -134,6 +144,42 @@
   font-size: 0.75rem;
   color: #486581;
   font-weight: 700;
+}
+
+/* Gender section */
+.gender-group {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #627d98;
+  margin: 1rem 0 1.5rem; /* spacing above and below */
+  border: none;
+  border-bottom: 1.8px solid #bcccdc;
+  padding-bottom: 0.6rem;
+}
+
+.gender-group legend {
+  margin-right: 1rem;
+  color: #486581;
+  font-weight: 700;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.gender-group label {
+  font-weight: 500;
+  color: #334e68;
+  cursor: pointer;
+}
+
+.gender-group input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 /* Submit button */
@@ -149,7 +195,7 @@
   cursor: pointer;
   box-shadow: 0 6px 16px #486581aa;
   transition: all 0.35s ease;
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeSlideIn 0.7s ease forwards;
@@ -162,7 +208,7 @@
   transform: translateY(-3px) scale(1.03);
 }
 
-/* Links container */
+/* Login link */
 .auth-links {
   margin-top: 1rem;
   text-align: center;
@@ -185,6 +231,18 @@
 .auth-links a:hover {
   border-color: #486581;
 }
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .gender-group {
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+}
+    
 
 /* Responsive */
 @media (max-width: 480px) {
