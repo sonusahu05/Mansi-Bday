@@ -14,6 +14,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: undefined,
+        assetFileNames: 'assets/[name].[hash][extname]'
       }
     }
   },
@@ -23,5 +24,6 @@ export default defineConfig({
   },
   preview: {
     port: 4173
-  }
+  },
+  assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.avif']
 })
