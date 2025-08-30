@@ -206,7 +206,7 @@ export default function Login() {
 
       {/* RIGHT PANEL: Login Form */}
       <div className="flex-1 bg-[#fdf6f9] text-[#222] px-8 py-16 flex flex-col justify-center items-center mt-[70px] md:px-6 md:py-8">
-        <div className="w-full max-w-[400px] px-8 py-10 bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] md:px-6 md:py-8 md:max-w-[60%]">
+        <div className="w-full max-w-[400px] px-8 py-10 bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] md:px-6 md:py-0.5 md:max-w-[60%]">
           <div className="bg-[#e8ecf3] rounded-full w-20 h-20 flex items-center justify-center text-3xl text-[#4b5c6b] mx-auto mb-6 shadow-[0_0_12px_rgba(0,0,0,0.06)] md:w-15 md:h-15 md:text-2xl md:mb-4">🌸</div>
           <h2 className="text-3xl font-semibold mb-8 text-[#1e2a38] text-center md:text-2xl">Welcome Back</h2>
 
