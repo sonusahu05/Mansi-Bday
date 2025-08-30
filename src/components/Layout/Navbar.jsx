@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link } from 'react-router-dom';
-import logo from "../../assets/brand/eazyvenue-logo.svg";
+import logo from "../../assets/brand/logo.svg";
 import { FaSearch, FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 
 const trendingLinks = [

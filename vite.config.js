@@ -17,11 +17,23 @@ export default defineConfig({
       }
     }
   },
-  base: '/',
   server: {
-    port: 5173
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+      'Cross-Origin-Embedder-Policy': 'unsafe-none'
+    },
+    proxy: {
+      '/api': {
+        target: process.env.VITE_API_BASE || 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
   },
   preview: {
-    port: 4173
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+      'Cross-Origin-Embedder-Policy': 'unsafe-none'
+    }
   }
 })

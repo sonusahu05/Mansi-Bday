@@ -175,3 +175,81 @@ body {
 #root {
   min-height: 100vh;
 }
+@theme {
+  --color-about_us_team:   #F19A70;
+  --color-about_us_journey:#F8DEF6;
+  --color-about_us:        #F19A70;
+  --color-contact_us:      #FFEBCD;
+  --color-contact_us_card: #FFFFFF;
+  --color-my_schedule:     #F8CECA;
+  --color-my_schedule_button:#F29E7D;
+  --color-new_schedule_button:#9BCF60;
+  --color-bottom_navbar:   #141414;
+  --color-home_all_questions_button:#8A60F6;
+  --color-faq_home:        #FEFCE4;
+  --color-expert_home_bg:  #141414;
+  --color-schedule_home:   #F2F2F2;
+  --color-expert_home:     #ECCC7B;
+  --color-all_questions_home:#0E1116;
+  --color-reviews_home:    #1B363F;
+  --color-reviews_card_home:#E9EBEC;
+  --color-red_color:       #9E0A0E;
+  --color-red_color_opacity:#9e0a0f0e;
+  --color-red_color_op:    #9e0a0fdf;
+
+  /* Custom pink color palette for wedding invites */
+  --color-pink-light:   #FFE4EC;
+  --color-pink:         #FFB6D5;
+  --color-pink-medium:  #FF69B4;
+  --color-pink-dark:    #C2185B;
+  --color-pink-accent:  #F06292;
+
+  /* Box shadows */
+  --shadow-3xl: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+
+  /* Border widths */
+  --border-width-20: 20px;
+  --border-width-30: 30px;
+
+  /* Transition delays */
+  --transition-delay-1500: 1500ms;
+  --transition-delay-2000: 2000ms;
+
+  /* Custom spacing */
+  --spacing-128: 32rem;
+
+  --minHeight-1/8: 50vh;
+
+  /* Animation definitions */
+  --animate-fade-in: fade-in 2s ease-in-out;
+
+  /* Define the keyframes */
+  @keyframes fade-in {
+    0%   { opacity: 0;   transform: translateY(20px);  }
+    50%  { opacity: 0.5; transform: translateY(-10px); }
+    100% { opacity: 1;   transform: translateY(0);    }
+}
+}
+
+/* 3. You can still add any extra component-level CSS here */
+@layer components {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Franklin Gothic Medium','Arial Narrow',Arial,sans-Lobster;
+    transition: all 0.5s ease-in-out;
+  }
+  h1, h2, h3, .font-heading {
+    font-family: var(--font-heading), cursive;
+    letter-spacing: 0.5px;
+  }
+}
+
+
+@layer components {
+    html {
+        scroll-behavior: smooth;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-Lobster;
+        transition: all 0.5s ease-in-out;
+    }
+}
+

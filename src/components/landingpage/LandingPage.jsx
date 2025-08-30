@@ -3,12 +3,28 @@ import { useNavigate } from 'react-router-dom';
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./LandingPage.css";
-import card1 from '/public/LandingPage/arancia-rossa-48599.avif'; // replace with actual paths
-import card2 from '/public/LandingPage/island-time-48254.avif';
+import card1 from '../../assets/landing_page/arancia-rossa-48599.avif'; // replace with actual paths
+import card2 from '../../assets/landing_page/island-time-48254.avif';
+
+// Import phone screen images
+import phoneImage1 from '../../assets/phone_screen/1.jpeg';
+import phoneImage2 from '../../assets/phone_screen/2.jpeg';
+import phoneImage3 from '../../assets/phone_screen/3.jpeg';
+
+// Import landing page images
+import handDrawnPicnic from '../../assets/landing_page/hand-drawn-picnic-50195.avif';
+import midCenturyPool from '../../assets/landing_page/mid-century-pool-50060.avif';
+import tubularLetters from '../../assets/landing_page/tubular-letters-49340.avif';
+import partyInJungle from '../../assets/landing_page/party-in-the-jungle-48913.avif';
+import cutieFins from '../../assets/landing_page/cutie-fins-48785.avif';
+import velveteenRabbits from '../../assets/landing_page/velveteen-rabbits-49047.avif';
+import playingEight from '../../assets/landing_page/playing_8.png';
+import trendingBg1 from '../../assets/landing_page/trending_bg_general01pink.svg';
+import trendingBg2 from '../../assets/landing_page/trending_bg_general02pink.svg';
 
 // Celebration Section (Hero)
 const CelebrationSection = () => {
-  const images = ["/1.jpeg", "/2.jpeg", "/3.jpeg"]; // Update with correct paths
+  const images = [phoneImage1, phoneImage2, phoneImage3]; // Use imported images
   const [current, setCurrent] = useState(0);
   const length = images.length;
 
@@ -95,14 +111,14 @@ const trendingItems = [
   {
     id: 1,
     title: 'Back to school',
-    backgroundImage: '/public/LandingPage/trending_bg_general01pink.svg',
-    foregroundImage: '/public/LandingPage/hand-drawn-picnic-50195.avif',
+    backgroundImage: trendingBg1,
+    foregroundImage: handDrawnPicnic,
   },
   {
     id: 2,
     title: 'Housewarming parties',
-    backgroundImage: '/public/LandingPage/trending_bg_general02pink.svg',
-    foregroundImage: '/public/LandingPage/mid-century-pool-50060.avif',
+    backgroundImage: trendingBg2,
+    foregroundImage: midCenturyPool,
   },
 ];
 
@@ -146,8 +162,8 @@ const BirthdayShowcase = () => {
     <section className="birthday-section">
       <div className="birthday-left">
         <div className="birthday-bg">
-          <img src="/public/LandingPage/tubular-letters-49340.avif" alt="Pool Party" className="birthday-card" />
-          <img src="/public/LandingPage/party-in-the-jungle-48913.avif" alt="Birthday Girl" className="birthday-card overlap" />
+          <img src={tubularLetters} alt="Pool Party" className="birthday-card" />
+          <img src={partyInJungle} alt="Birthday Girl" className="birthday-card overlap" />
         </div>
       </div>
 
@@ -259,12 +275,12 @@ const GreetingIsland = () => {
           <div className="loop loop2" />
           <img
             className="card-img"
-            src="public/LandingPage/cutie-fins-48785.avif"
+            src={cutieFins}
             alt="Baby Shower Invitation"
           />
           <img
             className="card-img"
-            src="public/LandingPage/velveteen-rabbits-49047.avif"
+            src={velveteenRabbits}
             alt="Gender Reveal Invitation"
           />
         </div>
@@ -464,7 +480,7 @@ const RSVPLanding = () => {
           
           <div className="rsvp-right">
             <img 
-              src="/public/LandingPage/playing_8.png" 
+              src={playingEight}
               alt="RSVP Interface Mockup" 
               className="rsvp-mockup-image"
             />

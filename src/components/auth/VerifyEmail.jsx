@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const images = ["/1.jpeg", "/2.jpeg", "/3.jpeg"]; // Adjust paths as needed
+// Import phone screen images
+import phoneImage1 from '../../assets/phone_screen/1.jpeg';
+import phoneImage2 from '../../assets/phone_screen/2.jpeg';
+import phoneImage3 from '../../assets/phone_screen/3.jpeg';
 
+const images = [phoneImage1, phoneImage2, phoneImage3];
 export default function VerifyEmail() {
   const [current, setCurrent] = useState(0);
   const length = images.length;

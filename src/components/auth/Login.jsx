@@ -1,12 +1,127 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaChevronLeft, FaChevronRight, FaEye, FaEyeSlash } from "react-icons/fa";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import axios from "axios";
+import LoginWithGoogle from "../auth/GoogleAuth";
+// Import phone screen images
+import phoneImage1 from '../../assets/phone_screen/1.jpeg';
+import phoneImage2 from '../../assets/phone_screen/2.jpeg';
+import phoneImage3 from '../../assets/phone_screen/3.jpeg';
 
-const images = ["/1.jpeg", "/2.jpeg", "/3.jpeg"]; // Update with correct paths
+const images = [phoneImage1, phoneImage2, phoneImage3];
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function Login() {
+  // Carousel state
   const [current, setCurrent] = useState(0);
   const length = images.length;
+
+  // Login state
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const auth = getAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!loginData.email || !loginData.password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const emailVerified = await axios.post(
+        `${API_BASE_URL}/onboard/check-email-verification-status`,
+        loginData
+      );
+
+      if (!emailVerified.data.verified) {
+        setError(
+          "Email not verified. Please check your inbox and verify your email."
+        );
+        return;
+      }
+
+      await signInUser();
+    } catch (error) {
+      handleLoginError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signInUser = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        loginData.email,
+        loginData.password
+      );
+
+      navigate("/home");
+    } catch (error) {
+      handleLoginError(error);
+    }
+  };
+
+  const handleLoginError = (error) => {
+    switch (error.code) {
+      case "auth/wrong-password":
+        setError(
+          "Invalid password. Please double-check your password and try again."
+        );
+        break;
+      case "auth/user-not-found":
+        setError(
+          "User not found. Please check the email address or register if you are new."
+        );
+        break;
+      case "auth/invalid-email":
+        setError("Invalid email address. Please enter a valid email.");
+        break;
+      // Add more cases as needed
+      default:
+        console.error("Authentication Error:", error);
+        setError("Wrong Credentials. Please try again.");
+        break;
+    }
+  };
+  
+
+  const handleForgotPassword = () => {
+    navigate("/forgot_password");
+  };
+
+  const handleSignUp = () => {
+    navigate("/register");
+  };
+
+  const handleSkipLogin = () => {
+    navigate("/home");
+  };
+
+  const handleChange = (e) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const nextSlide = () => {
     setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1));
@@ -95,13 +210,24 @@ export default function Login() {
           <div className="bg-[#e8ecf3] rounded-full w-20 h-20 flex items-center justify-center text-3xl text-[#4b5c6b] mx-auto mb-6 shadow-[0_0_12px_rgba(0,0,0,0.06)] md:w-15 md:h-15 md:text-2xl md:mb-4">🌸</div>
           <h2 className="text-3xl font-semibold mb-8 text-[#1e2a38] text-center md:text-2xl">Welcome Back</h2>
 
-          <form>
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm">
+              {error}
+            </div>
+          )}
+
+          <LoginWithGoogle />
+
+          <form onSubmit={handleLogin}>
             <div className="flex flex-col mb-6">
               <label htmlFor="email" className="text-[0.95rem] font-medium text-[#555] mb-2">Email address</label>
               <input
                 className="bg-[#f9f9f9] border border-[#dcdce1] rounded-lg py-3 px-4 text-[#333] text-[0.95rem] transition-colors duration-200 focus:border-[#fb6da0] focus:outline-none focus:shadow-[0_0_0_3px_rgba(251,109,160,0.2)] placeholder-[#999]"
                 type="email"
                 id="email"
+                name="email"
+                value={loginData.email}
+                onChange={handleChange}
                 placeholder="your@email.com"
                 required
               />
@@ -109,27 +235,55 @@ export default function Login() {
 
             <div className="flex flex-col mb-6">
               <label htmlFor="password" className="text-[0.95rem] font-medium text-[#555] mb-2">Password</label>
-              <input
-                className="bg-[#f9f9f9] border border-[#dcdce1] rounded-lg py-3 px-4 text-[#333] text-[0.95rem] transition-colors duration-200 focus:border-[#fb6da0] focus:outline-none focus:shadow-[0_0_0_3px_rgba(251,109,160,0.2)] placeholder-[#999]"
-                type="password"
-                id="password"
-                placeholder="••••••••"
-                required
-              />
+              <div className="relative">
+                <input
+                  className="bg-[#f9f9f9] border border-[#dcdce1] rounded-lg py-3 px-4 pr-12 text-[#333] text-[0.95rem] transition-colors duration-200 focus:border-[#fb6da0] focus:outline-none focus:shadow-[0_0_0_3px_rgba(251,109,160,0.2)] placeholder-[#999] w-full"
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={loginData.password}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={toggleShowPassword}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
 
-            <div className="flex justify-end text-sm mb-6">
+            <div className="flex justify-between items-center text-sm mb-6">
               <Link to="/forgot-password" className="text-[#fb6da0] no-underline hover:underline">Forgot password?</Link>
+              <button 
+                type="button" 
+                onClick={handleSkipLogin}
+                className="text-[#999] no-underline hover:underline"
+              >
+                Skip for now
+              </button>
             </div>
 
-            <button type="submit" className="bg-gradient-to-br from-[#f21b6a] to-[#fb6da0] border-none text-white font-bold py-4 rounded-lg cursor-pointer w-full text-lg transition-colors duration-300 hover:bg-gradient-to-br hover:from-[#e60b5e] hover:to-[#f94e8b] md:text-base md:py-3">
-              Log In
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="bg-gradient-to-br from-[#f21b6a] to-[#fb6da0] border-none text-white font-bold py-4 rounded-lg cursor-pointer w-full text-lg transition-colors duration-300 hover:bg-gradient-to-br hover:from-[#e60b5e] hover:to-[#f94e8b] md:text-base md:py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Signing In..." : "Log In"}
             </button>
           </form>
 
           <div className="text-center mt-6">
             <span className="text-[#ccc]">Don't have an account?</span>{" "}
-            <Link to="/signup" className="text-[#f15b84] font-medium no-underline hover:underline">Create one</Link>
+            <button 
+              onClick={handleSignUp}
+              className="text-[#f15b84] font-medium no-underline hover:underline bg-transparent border-none cursor-pointer"
+            >
+              Create one
+            </button>
           </div>
         </div>
       </div>
