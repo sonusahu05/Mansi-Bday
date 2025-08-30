@@ -1,455 +1,91 @@
+/* Footer.css */
+
 .footer {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-top: 1px solid #dee2e6;
-  padding: 60px 0 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  color: #495057;
-  /* border:2px solid red; */
-}
-
-.footer-container {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 0 20px;
-  /* border:2px solid red; */
-}
-
-/* Newsletter Section */
-.newsletter-section {
-  text-align: center;
-  margin-bottom: 50px;
+  background-color: #A55578;
+  color: #fff;
   padding: 40px 20px;
-  /* border:2px solid red; */
+  font-family: 'Arial', sans-serif;
 }
 
-.newsletter-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #212529;
-  margin-bottom: 12px;
-  line-height: 1.2;
-}
-
-.newsletter-subtitle {
-  font-size: 1.1rem;
-  color: #6c757d;
-  margin-bottom: 30px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.5;
-}
-
-.newsletter-form {
+.footer-top {
   display: flex;
-  justify-content: center;
-  margin-top: 25px;
-}
-
-.input-group {
-  display: flex;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 50px;
-  overflow: hidden;
-  background: white;
-}
-
-.email-input {
-  flex: 1;
-  padding: 16px 24px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  background: transparent;
-  color: #495057;
-}
-
-.email-input::placeholder {
-  color: #adb5bd;
-}
-
-.email-input:focus {
-  outline: none;
-}
-
-.subscribe-btn {
-  background: linear-gradient(135deg, #28a745, #20c997);
-  color: white;
-  border: none;
-  padding: 16px 28px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
-
-.subscribe-btn:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34);
-  transform: translateY(-1px);
-}
-
-.subscribe-btn:active {
-  transform: translateY(0);
-}
-
-.subscribe-btn.loading {
-  background: #6c757d;
-  cursor: not-allowed;
-}
-
-.subscribe-btn.success {
-  background: linear-gradient(135deg, #28a745, #20c997);
-  animation: pulse 0.6s ease-in-out;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-/* Trust Pilot Section */
-.trustpilot-section {
-  text-align: center;
-  margin-bottom: 50px;
-  padding: 30px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  display: inline-block;
-  margin-left: 50%;
-  transform: translateX(-50%);
-}
-
-.rating-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 30px;
 }
 
-.rating-text {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: #212529;
-}
-
-.rating-score {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: #28a745;
-}
-
-.stars {
-  display: flex;
-  gap: 2px;
-}
-
-.star {
-  color: #00b67a;
-  font-size: 1.3rem;
-}
-
-.review-text {
-  color: #6c757d;
-  font-size: 0.95rem;
-}
-
-.trustpilot-logo {
-  font-weight: 700;
-  color: #00b67a;
-  font-size: 1rem;
-}
-
-/* Navigation Links */
-.footer-navigation {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
-  margin-bottom: 50px;
-  padding: 0 20px;
-}
-
-.footer-column {
-  min-width: 0;
-}
-
-.column-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #212529;
+.footer-branding {
+  flex: 1;
+  min-width: 250px;
   margin-bottom: 20px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #e9ecef;
+}
+
+.logo {
+  font-family: 'Georgia', cursive;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  font-size: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.social-icons svg {
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-icons svg:hover {
+  transform: scale(1.2);
+  color: #ddd;
 }
 
 .footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  display: flex;
+  flex: 2;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  min-width: 300px;
 }
 
-.footer-links li {
-  margin-bottom: 12px;
+.link-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
 }
 
-.footer-link {
-  color: #6c757d;
+.link-column h4 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.link-column a {
+  color: #fff;
   text-decoration: none;
+  margin-bottom: 8px;
   font-size: 0.95rem;
-  transition: all 0.2s ease;
-  display: block;
-  padding: 4px 0;
 }
 
-.footer-link:hover {
-  color: #28a745;
-  transform: translateX(5px);
+.link-column a:hover {
+  text-decoration: underline;
 }
 
-/* Bottom Footer */
 .footer-bottom {
-  border-top: 1px solid #dee2e6;
-  padding-top: 30px;
-}
-
-.footer-bottom-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
-.logo-social-section {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-icon {
-  font-size: 1.8rem;
-  background: linear-gradient(135deg, #28a745, #20c997);
-  width: 45px;
-  height: 45px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo-text {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #212529;
-}
-
-.social-links {
-  display: flex;
-  gap: 12px;
-}
-
-.social-link {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #28a745, #20c997);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-}
-
-.social-link:hover {
-  transform: translateY(-3px) scale(1.1);
-  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
-}
-
-.app-links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.help-section {
-  color: #6c757d;
-  font-weight: 600;
-}
-
-.download-apps {
-  display: flex;
-  gap: 12px;
-}
-
-.app-store-link,
-.google-play-link {
-  text-decoration: none;
-}
-
-.app-store-btn,
-.google-play-btn {
-  background: #212529;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.app-store-btn:hover,
-.google-play-btn:hover {
-  background: #495057;
-  transform: translateY(-2px);
-}
-
-/* Footer Legal */
-.footer-legal {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 20px;
-  border-top: 1px solid #dee2e6;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.copyright {
-  color: #6c757d;
-  font-size: 0.9rem;
-}
-
-.legal-links {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-}
-
-.legal-link {
-  color: #6c757d;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
-}
-
-.legal-link:hover {
-  color: #28a745;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .newsletter-title {
-    font-size: 2rem;
-  }
-  
-  .newsletter-subtitle {
-    font-size: 1rem;
-  }
-  
-  .input-group {
-    flex-direction: column;
-    border-radius: 12px;
-  }
-  
-  .email-input,
-  .subscribe-btn {
-    border-radius: 0;
-  }
-  
-  .email-input {
-    border-radius: 12px 12px 0 0;
-  }
-  
-  .subscribe-btn {
-    border-radius: 0 0 12px 12px;
-  }
-  
-  .footer-navigation {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 30px;
-  }
-  
-  .footer-bottom-content {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .logo-social-section {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .app-links {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .download-apps {
-    justify-content: center;
-  }
-  
-  .footer-legal {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
-  }
-  
-  .legal-links {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer {
-    padding: 40px 0 20px;
-  }
-  
-  .footer-container {
-    padding: 0 15px;
-  }
-  
-  .newsletter-section {
-    padding: 20px 10px;
-  }
-  
-  .newsletter-title {
-    font-size: 1.8rem;
-  }
-  
-  .footer-navigation {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  
-  .rating-container {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .trustpilot-section {
-    padding: 20px;
-    margin: 0 15px 30px;
-  }
-  
-  .legal-links {
-    flex-direction: column;
-    gap: 10px;
-  }
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.95rem;
+  color: #f0f0f0;
 }

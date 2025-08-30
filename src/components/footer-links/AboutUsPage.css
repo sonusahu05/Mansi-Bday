@@ -1,0 +1,124 @@
+.about-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  line-height: 1.6;
+  min-height: 100vh; /* full viewport height */
+  box-sizing: border-box;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #999;
+}
+
+.breadcrumb-current {
+  color: #444;
+  font-weight: 600;
+}
+
+.about-title {
+  font-size: 38px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1a202c;
+  letter-spacing: 1.1px;
+}
+
+.about-intro {
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  font-size: 18px;
+  text-align: center;
+  color: #555;
+  font-weight: 500;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeIn 1s ease 0.3s forwards;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.about-section {
+  background-color: #fff;
+  padding: 24px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.08);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.7s ease forwards;
+  animation-delay: 0.5s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default; /* show default pointer */
+}
+
+/* Hover effect */
+.about-section:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(59, 67, 84, 0.25);
+  cursor: pointer;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #111827;
+  letter-spacing: 0.02em;
+}
+
+.section-content {
+  font-size: 16px;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .about-wrapper {
+    padding: 30px 15px;
+  }
+  .about-title {
+    font-size: 30px;
+  }
+  .about-intro {
+    font-size: 16px;
+    max-width: 100%;
+  }
+  .about-section {
+    padding: 20px 20px;
+  }
+  .section-title {
+    font-size: 20px;
+  }
+  .section-content {
+    font-size: 15px;
+  }
+}
+
+/* Fade in keyframes */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* Fade up keyframes for sections */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,107 @@
+/* Apply the fade-in animation on component mount */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Slight upward movement */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply the fade-out animation on component unmount */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px); /* Slight upward movement */
+  }
+}
+
+.cookie-container {
+  max-width: 900px;
+  margin: 100px auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #2a2f3b;
+  background-color: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  
+  /* Fade-in animation */
+  opacity: 0;
+  animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.cookie-container.fade-out {
+  animation: fadeOut 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Breadcrumb, titles, and sections remain the same */
+.breadcrumb {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.breadcrumb-link {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  color: #7a7a7a;
+}
+
+.breadcrumb-current {
+  font-weight: bold;
+  color: #3b4454;
+}
+
+.cookie-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #000;
+  text-align: center;
+}
+
+.cookie-intro {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  color: #495763;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 30px 0 10px 0;
+  color: #000;
+}
+
+.section-content {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.cookie-note {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #495763;
+  margin-top: 20px;
+}
+
+a {
+  color: #3b4454;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #1a1a1a;
+}
