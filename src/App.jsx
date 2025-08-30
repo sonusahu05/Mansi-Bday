@@ -28,6 +28,7 @@ function App() {
       <Routes>
 
         {/* Default route */}
+        <Route path="*" element={<> <Navbar /> <LandingPage /> <Footer /> </>} />
         <Route path="/" element={<> <Navbar /> <LandingPage /> <Footer /> </>} />
 
         {/* Auth Routes */}

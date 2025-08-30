@@ -651,8 +651,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import phoneImage1 from '../../assets/phone_screen/1.jpeg';
 import phoneImage2 from '../../assets/phone_screen/2.jpeg';
 import phoneImage3 from '../../assets/phone_screen/3.jpeg';
-import phoneImage4 from '/EazyInvites/Eazyinvites-frontend.com/public/temp.gif';
-import phoneImage5 from '/EazyInvites/Eazyinvites-frontend.com/public/temp1.webp';
+import phoneImage4 from '../../assets/phone_screen/2.jpeg';
+import phoneImage5 from '../../assets/phone_screen/2.jpeg';
 
 
 const images = [phoneImage1, phoneImage2, phoneImage3];
