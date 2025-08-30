@@ -18,6 +18,7 @@ import FaqPage from "./components/footer-links/FaqPage";
 import AboutUsPage from "./components/footer-links/AboutUsPage";
 import ContactUs from "./components/footer-links/ContactUs";
 import Help from "./components/footer-links/Help";
+import LandingPage from "./components/landingpage/LandingPage";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
       <Routes>
 
         {/* Default route */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<> <Navbar /> <LandingPage /> <Footer /> </>} />
 
         {/* Auth Routes */}
         <Route path="/login" element={<><Navbar /><Login /><Footer /></>} />
