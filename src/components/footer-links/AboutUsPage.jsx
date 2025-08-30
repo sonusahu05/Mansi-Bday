@@ -1,5 +1,4 @@
-// AboutUsPage.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const aboutData = [
   {
@@ -25,8 +24,20 @@ const aboutData = [
 ];
 
 export default function AboutUsPage() {
+  const [fadeClass, setFadeClass] = useState('opacity-0'); // Initially set to hidden
+
+  useEffect(() => {
+    // Fade-in effect when the component mounts
+    setFadeClass('opacity-100 transition-opacity duration-1000');
+
+    // Cleanup to fade-out effect when the component unmounts
+    return () => {
+      setFadeClass('opacity-0 transition-opacity duration-1000');
+    };
+  }, []);
+
   return (
-    <div className="max-w-4xl mx-auto px-5 py-10 font-sans text-gray-800 leading-relaxed min-h-screen">
+    <div className={`max-w-4xl mx-auto px-5 py-10 font-sans text-gray-800 leading-relaxed min-h-screen ${fadeClass}`}>
       {/* Breadcrumb */}
       <nav className="text-sm mb-5 text-gray-500">
         <span>Home</span> &gt; <span className="text-gray-700 font-semibold">About Us</span>

@@ -19,10 +19,12 @@ import AboutUsPage from "./components/footer-links/AboutUsPage";
 import ContactUs from "./components/footer-links/ContactUs";
 import Help from "./components/footer-links/Help";
 import LandingPage from "./components/landingpage/LandingPage";
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
 
         {/* Default route */}

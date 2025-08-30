@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const faqCategories = [
   'About EazyInvites',
@@ -105,6 +105,7 @@ const faqData = [
 export default function FaqPage() {
   const [activeCategory, setActiveCategory] = useState('About EazyInvites');
   const [openItems, setOpenItems] = useState({});
+  const [fadeClass, setFadeClass] = useState('opacity-0'); // Initially hidden
 
   const toggleItem = (index) => {
     setOpenItems((prev) => ({
@@ -115,8 +116,20 @@ export default function FaqPage() {
 
   const filteredFaqs = faqData.filter((faq) => faq.category === activeCategory);
 
+  useEffect(() => {
+    // Fade-in effect when the component mounts
+    setFadeClass('opacity-100 transition-opacity duration-1000');
+
+    // Cleanup to fade-out when component unmounts
+    return () => {
+      setFadeClass('opacity-0 transition-opacity duration-1000');
+    };
+  }, []);
+
   return (
-    <div className="max-w-[1100px] mx-auto my-[100px] font-['Segoe_UI',sans-serif] bg-white text-[#333]">
+    <div
+      className={`max-w-[1100px] mx-auto my-[100px] font-['Segoe_UI',sans-serif] bg-white text-[#333] ${fadeClass}`}
+    >
       <div className="text-sm mb-4 text-[#888]">
         <span>Home</span> &gt; <span className="text-[#222] font-semibold">FAQ</span>
       </div>

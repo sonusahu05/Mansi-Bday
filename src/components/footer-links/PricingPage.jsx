@@ -129,12 +129,21 @@ const PricingPage = () => {
   const [selectedCardIndex, setSelectedCardIndex] = useState(null);
   const [activeTab, setActiveTab] = useState("personal");
   const [timer, setTimer] = useState(3600);
+  const [fadeClass, setFadeClass] = useState("opacity-0"); // Initially hidden
 
   useEffect(() => {
+    // Fade-in effect when the component mounts
+    setFadeClass("opacity-100 transition-opacity duration-1000");
+
     const interval = setInterval(() => {
       setTimer((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
-    return () => clearInterval(interval);
+
+    return () => {
+      // Fade-out effect when the component unmounts
+      setFadeClass("opacity-0 transition-opacity duration-1000");
+      clearInterval(interval);
+    };
   }, []);
 
   const formatTime = () => {
@@ -151,7 +160,9 @@ const PricingPage = () => {
   };
 
   return (
-    <div className="font-['Inter',sans-serif] max-w-[1200px] mx-auto my-[100px] px-5 py-10 text-center">
+    <div
+      className={`font-['Inter',sans-serif] max-w-[1200px] mx-auto my-[100px] px-5 py-10 text-center ${fadeClass}`}
+    >
       <div className="inline-block border border-[#ccc] rounded-[20px] px-[14px] py-[6px] font-medium mb-5">🎖️ Pricing</div>
       <h1 className="text-[2.2rem] font-bold">Choose a plan & start today</h1>
       <p className="text-base text-[#555] mt-[10px] mb-[30px]">
