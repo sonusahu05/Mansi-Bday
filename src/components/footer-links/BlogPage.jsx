@@ -1,5 +1,4 @@
 import React from 'react';
-import './BlogPage.css';
 
 const BlogPage = () => {
   const blogs = [
@@ -42,22 +41,22 @@ const BlogPage = () => {
   ];
 
   return (
-    <div className="blog-container">
-      <nav className="breadcrumb">
-        <a href="/" className="breadcrumb-link">Home</a> &gt; <span className="breadcrumb-current">Blogs</span>
+    <div className="max-w-[1200px] mx-auto my-[100px] px-5 font-['Arial',sans-serif] opacity-0 translate-y-5 animate-[blogFadeIn_1.2s_cubic-bezier(0.4,0,0.2,1)_forwards]">
+      <nav className="text-[0.9rem] text-[#999] mb-5">
+        <a href="/" className="text-[#ccc] no-underline hover:text-[#7a7a7a]">Home</a> &gt; <span className="font-bold text-[#3b4454]">Blogs</span>
       </nav>
 
-      <h1 className="blog-title">Photography Blogs</h1>
+      <h1 className="text-[2rem] font-bold mb-5 text-black text-center">Photography Blogs</h1>
 
-      <div className="blog-grid">
+      <div className="grid grid-cols-3 gap-5 mt-5">
         {blogs.map((blog, index) => (
-          <div key={index} className="blog-card">
-            <img src={`./public/blog/image${index + 1}.jpg`} alt={blog.title} className="blog-image" />
-            <div className="blog-info">
-              <p className="blog-category">{blog.category}</p>
-              <p className="blog-date">{blog.date}</p>
-              <h3 className="blog-card-title">{blog.title}</h3>
-              <p className="blog-description">{blog.description}</p>
+          <div key={index} className="bg-white rounded-lg overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out hover:-translate-y-[10px] hover:shadow-[0_6px_12px_rgba(0,0,0,0.2)]">
+            <img src={`./public/blog/image${index + 1}.jpg`} alt={blog.title} className="w-full h-[200px] object-cover" />
+            <div className="p-[15px]">
+              <p className="text-[0.9rem] text-[#6c757d] mb-[5px]">{blog.category}</p>
+              <p className="text-[0.9rem] text-[#6c757d] mb-[10px]">{blog.date}</p>
+              <h3 className="text-[1.25rem] font-semibold mb-[10px] text-[#333]">{blog.title}</h3>
+              <p className="text-base leading-[1.6] mb-[15px] text-[#495763]">{blog.description}</p>
             </div>
           </div>
         ))}

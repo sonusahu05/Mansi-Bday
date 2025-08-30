@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./ContactUs.css";
 
 const PhoneIcon = () => (
   <svg
@@ -99,59 +98,59 @@ export default function Contact() {
   };
 
   return (
-    <div className="contact-wrapper">
-      <nav className="breadcrumb">
-        <span className="breadcrumb-link">
+    <div className="max-w-[960px] mx-auto mt-[100px] mb-[10px] px-5 pb-[60px] font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif] text-[#222] min-h-screen box-border animate-[contactFadeIn_0.8s_ease_forwards]">
+      <nav className="text-sm mb-8 text-[#999] flex items-center gap-[6px]">
+        <span className="cursor-pointer text-[#bbb] transition-colors duration-300 hover:text-[#666]">
           <a href="/">Home</a>
         </span>
-        <span className="breadcrumb-arrow">›</span>
-        <span className="breadcrumb-link">
+        <span className="text-[#bbb]">›</span>
+        <span className="cursor-pointer text-[#bbb] transition-colors duration-300 hover:text-[#666]">
           <a href="/contact-us" style={{ textDecoration: "none" }}>
             Contact
           </a>
         </span>
-        <span className="breadcrumb-arrow">›</span>
-        <span className="breadcrumb-current">Get in Touch</span>
+        <span className="text-[#bbb]">›</span>
+        <span className="text-[#222] font-semibold">Get in Touch</span>
       </nav>
 
-      <h1 className="contact-title">Get in Touch</h1>
-      <p className="contact-intro">
+      <h1 className="text-[38px] font-black mb-3 text-center text-[#1a202c] tracking-[1.1px]">Get in Touch</h1>
+      <p className="max-w-[700px] mx-auto mb-12 text-lg text-center text-[#555] font-medium leading-[1.8] opacity-0 animate-[contactFadeIn_1s_ease_0.3s_forwards]">
         We'd love to hear from you! Whether you have questions, feedback, or
         just want to say hello, feel free to reach out to us.
       </p>
 
-      <div className="contact-info">
-        <div className="info-card" style={{ animationDelay: "0.2s" }}>
-          <div className="icon">
+      <div className="flex gap-6 mb-12 flex-wrap justify-center">
+        <div className="bg-white rounded-xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] px-[30px] py-6 flex-[1_1_280px] min-w-[280px] opacity-0 translate-y-5 animate-[fadeInUp_0.7s_ease_forwards] cursor-default transition-all duration-300 hover:shadow-[0_12px_30px_rgba(0,0,0,0.15)] hover:-translate-y-[6px]" style={{ animationDelay: "0.2s" }}>
+          <div className="w-9 h-9 bg-[#a55d7a] rounded-[10px] flex justify-center items-center mb-3">
             <PhoneIcon />
           </div>
-          <h3>Phone</h3>
-          <p className="desc">Call us for quick support</p>
-          <ul>
-            <li>+1 123 456 7890</li>
-            <li>+1 987 654 3210</li>
+          <h3 className="text-[#a55d7a] font-bold text-lg mt-[5px] mb-3 ml-10">Phone</h3>
+          <p className="text-[#888] text-sm mb-3">Call us for quick support</p>
+          <ul className="list-none p-0 m-0 text-[#222] text-[15px] font-medium">
+            <li className="mb-2">+1 123 456 7890</li>
+            <li className="mb-2">+1 987 654 3210</li>
           </ul>
         </div>
 
-        <div className="info-card" style={{ animationDelay: "0.4s" }}>
-          <div className="icon">
+        <div className="bg-white rounded-xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] px-[30px] py-6 flex-[1_1_280px] min-w-[280px] opacity-0 translate-y-5 animate-[fadeInUp_0.7s_ease_forwards] cursor-default transition-all duration-300 hover:shadow-[0_12px_30px_rgba(0,0,0,0.15)] hover:-translate-y-[6px]" style={{ animationDelay: "0.4s" }}>
+          <div className="w-9 h-9 bg-[#a55d7a] rounded-[10px] flex justify-center items-center mb-3">
             <EmailIcon />
           </div>
-          <h3>Email</h3>
-          <p className="desc">Send us an email anytime</p>
-          <ul>
-            <li>support@example.com</li>
-            <li>info@example.com</li>
+          <h3 className="text-[#a55d7a] font-bold text-lg mt-[5px] mb-3 ml-10">Email</h3>
+          <p className="text-[#888] text-sm mb-3">Send us an email anytime</p>
+          <ul className="list-none p-0 m-0 text-[#222] text-[15px] font-medium">
+            <li className="mb-2">support@example.com</li>
+            <li className="mb-2">info@example.com</li>
           </ul>
         </div>
 
-        <div className="info-card" style={{ animationDelay: "0.6s" }}>
-          <div className="icon">
+        <div className="bg-white rounded-xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] px-[30px] py-6 flex-[1_1_280px] min-w-[280px] opacity-0 translate-y-5 animate-[fadeInUp_0.7s_ease_forwards] cursor-default transition-all duration-300 hover:shadow-[0_12px_30px_rgba(0,0,0,0.15)] hover:-translate-y-[6px]" style={{ animationDelay: "0.6s" }}>
+          <div className="w-9 h-9 bg-[#a55d7a] rounded-[10px] flex justify-center items-center mb-3">
             <OfficeIcon />
           </div>
-          <h3>Office</h3>
-          <p className="desc">Visit us at our office</p>
-          <address>
+          <h3 className="text-[#a55d7a] font-bold text-lg mt-[5px] mb-3 ml-10">Office</h3>
+          <p className="text-[#888] text-sm mb-3">Visit us at our office</p>
+          <address className="not-italic font-semibold text-[15px] text-[#222] leading-6">
             3010, 1 Aerocity, NIBR Corporate Park
             <br />
             Andheri Kurla Road, Sakinaka
@@ -161,71 +160,71 @@ export default function Contact() {
         </div>
       </div>
 
-      <form className="contact-form" onSubmit={handleSubmit} noValidate>
-        <h2>Send us a message</h2>
-        <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="firstName">First Name</label>
+      <form className="bg-white rounded-xl px-12 py-10 pb-[50px] shadow-[0_6px_20px_rgba(0,0,0,0.07)] max-w-[650px] mx-auto" onSubmit={handleSubmit} noValidate>
+        <h2 className="font-bold text-lg mb-6 text-[#222] text-center">Send us a message</h2>
+        <div className="flex gap-[18px] mb-5 flex-wrap">
+          <div className="flex-1 flex flex-col">
+            <label htmlFor="firstName" className="font-semibold text-sm mb-2 text-[#222]">First Name</label>
             <input
               type="text"
               id="firstName"
               placeholder="Your first name"
               value={form.firstName}
               onChange={handleChange}
-              className={errors.firstName ? "input-error" : ""}
+              className={`px-[14px] py-[10px] rounded-lg border-[1.5px] text-[15px] transition-colors duration-300 resize-none font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif] placeholder:text-[#bbb] placeholder:font-normal focus:border-[#a55d7a] focus:outline-none focus:shadow-[0_0_6px_rgba(165,93,122,0.4)] ${errors.firstName ? "border-[#e74c3c]" : "border-[#ccc]"}`}
             />
             {errors.firstName && (
-              <small className="error-text">{errors.firstName}</small>
+              <small className="text-[#e74c3c] text-[13px] mt-[6px] font-semibold">{errors.firstName}</small>
             )}
           </div>
-          <div className="form-group">
-            <label htmlFor="lastName">Last Name</label>
+          <div className="flex-1 flex flex-col">
+            <label htmlFor="lastName" className="font-semibold text-sm mb-2 text-[#222]">Last Name</label>
             <input
               type="text"
               id="lastName"
               placeholder="Your last name"
               value={form.lastName}
               onChange={handleChange}
-              className={errors.lastName ? "input-error" : ""}
+              className={`px-[14px] py-[10px] rounded-lg border-[1.5px] text-[15px] transition-colors duration-300 resize-none font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif] placeholder:text-[#bbb] placeholder:font-normal focus:border-[#a55d7a] focus:outline-none focus:shadow-[0_0_6px_rgba(165,93,122,0.4)] ${errors.lastName ? "border-[#e74c3c]" : "border-[#ccc]"}`}
             />
             {errors.lastName && (
-              <small className="error-text">{errors.lastName}</small>
+              <small className="text-[#e74c3c] text-[13px] mt-[6px] font-semibold">{errors.lastName}</small>
             )}
           </div>
         </div>
 
-        <div className="form-row">
-          <div className="form-group full-width">
-            <label htmlFor="email">Email Address</label>
+        <div className="flex gap-[18px] mb-5 flex-wrap">
+          <div className="flex-[1_1_100%] flex flex-col">
+            <label htmlFor="email" className="font-semibold text-sm mb-2 text-[#222]">Email Address</label>
             <input
               type="email"
               id="email"
               placeholder="you@example.com"
               value={form.email}
               onChange={handleChange}
-              className={errors.email ? "input-error" : ""}
+              className={`px-[14px] py-[10px] rounded-lg border-[1.5px] text-[15px] transition-colors duration-300 resize-none font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif] placeholder:text-[#bbb] placeholder:font-normal focus:border-[#a55d7a] focus:outline-none focus:shadow-[0_0_6px_rgba(165,93,122,0.4)] ${errors.email ? "border-[#e74c3c]" : "border-[#ccc]"}`}
             />
-            {errors.email && <small className="error-text">{errors.email}</small>}
+            {errors.email && <small className="text-[#e74c3c] text-[13px] mt-[6px] font-semibold">{errors.email}</small>}
           </div>
         </div>
 
-        <div className="form-row">
-          <div className="form-group full-width">
-            <label htmlFor="message">Message</label>
+        <div className="flex gap-[18px] mb-5 flex-wrap">
+          <div className="flex-[1_1_100%] flex flex-col">
+            <label htmlFor="message" className="font-semibold text-sm mb-2 text-[#222]">Message</label>
             <textarea
               id="message"
               placeholder="Write your message here..."
               value={form.message}
               onChange={handleChange}
-              className={errors.message ? "input-error" : ""}
+              className={`px-[14px] py-[10px] rounded-lg border-[1.5px] text-[15px] transition-colors duration-300 resize-none font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif] min-h-[100px] placeholder:text-[#bbb] placeholder:font-normal focus:border-[#a55d7a] focus:outline-none focus:shadow-[0_0_6px_rgba(165,93,122,0.4)] ${errors.message ? "border-[#e74c3c]" : "border-[#ccc]"}`}
             />
             {errors.message && (
-              <small className="error-text">{errors.message}</small>
+              <small className="text-[#e74c3c] text-[13px] mt-[6px] font-semibold">{errors.message}</small>
             )}
           </div>
         </div>
 
-        <button className="submit-btn" type="submit">
+        <button className="block mx-auto mt-[26px] bg-[#a55d7a] text-white font-bold text-base px-[30px] py-3 border-none rounded-[10px] cursor-pointer tracking-[0.6px] transition-colors duration-300 w-[180px] text-center hover:bg-[#a3546a]" type="submit">
           Send Message
         </button>
       </form>

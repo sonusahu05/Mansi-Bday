@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './FaqPage.css';
 
 const faqCategories = [
   'About EazyInvites',
@@ -117,19 +116,19 @@ export default function FaqPage() {
   const filteredFaqs = faqData.filter((faq) => faq.category === activeCategory);
 
   return (
-    <div className="faq-wrapper">
-      <div className="breadcrumb">
-        <span>Home</span> &gt; <span className="breadcrumb-current">FAQ</span>
+    <div className="max-w-[1100px] mx-auto my-[100px] font-['Segoe_UI',sans-serif] bg-white text-[#333]">
+      <div className="text-sm mb-4 text-[#888]">
+        <span>Home</span> &gt; <span className="text-[#222] font-semibold">FAQ</span>
       </div>
 
-      <h1 className="faq-title">Frequently Asked Questions</h1>
-      <p className="faq-subtitle">Find quick answers to common questions in our FAQ section</p>
+      <h1 className="text-4xl font-bold mb-2 text-center">Frequently Asked Questions</h1>
+      <p className="text-center text-base mb-10 text-[#666]">Find quick answers to common questions in our FAQ section</p>
 
-      <div className="faq-categories">
+      <div className="flex justify-center flex-wrap gap-4 mb-10">
         {faqCategories.map((category) => (
           <button
             key={category}
-            className={`faq-category ${activeCategory === category ? 'active' : ''}`}
+            className={`bg-[#f2f2f2] border-none px-[18px] py-[10px] rounded-lg text-[15px] text-[#333] cursor-pointer transition-colors duration-200 hover:bg-[#111] hover:text-white ${activeCategory === category ? 'bg-[#111] text-white' : ''}`}
             onClick={() => {
               setActiveCategory(category);
               setOpenItems({});
@@ -140,29 +139,31 @@ export default function FaqPage() {
         ))}
       </div>
 
-      <div className="faq-grid">
+      <div className="flex flex-col gap-5">
         {filteredFaqs.map((item, index) => {
           const isOpen = openItems[index];
           return (
-            <div key={index} className="faq-card">
-              <div className="faq-question" onClick={() => toggleItem(index)}>
+            <div key={index} className="border border-[#eee] rounded-[10px] p-5 transition-all duration-200 bg-white">
+              <div className="flex justify-between items-center font-semibold text-base cursor-pointer" onClick={() => toggleItem(index)}>
                 <span>{item.question}</span>
-                <div className="framer-icon-container">
-                  <div className={`icon minus-icon ${isOpen ? 'visible' : 'hidden'}`}>
+                <div className="bg-[#333] rounded-full w-8 h-8 grid place-items-center relative cursor-pointer flex-shrink-0">
+                  <div className={`absolute w-6 h-6 rounded-[10px] transition-opacity duration-200 ${isOpen ? 'opacity-100 z-[1]' : 'opacity-0 z-0'}`}>
                     <img
                       src="https://framerusercontent.com/images/ilTrUqtaRn3OV7UKGJjSNsQC1w.svg"
                       alt="Minus Icon"
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className={`icon plus-icon ${isOpen ? 'hidden' : 'visible'}`}>
+                  <div className={`absolute w-6 h-6 rounded-[10px] transition-opacity duration-200 ${isOpen ? 'opacity-0 z-0' : 'opacity-100 z-[1]'}`}>
                     <img
                       src="https://framerusercontent.com/images/ROg7tkXh5h3JY9OVXT66zDJMFUw.svg"
                       alt="Plus Icon"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                 </div>
               </div>
-              {isOpen && <div className="faq-answer">{item.answer}</div>}
+              {isOpen && <div className="mt-3 text-sm leading-6 text-[#444]">{item.answer}</div>}
             </div>
           );
         })}

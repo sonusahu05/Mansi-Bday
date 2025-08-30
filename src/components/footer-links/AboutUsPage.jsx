@@ -1,17 +1,16 @@
 // AboutUsPage.jsx
 import React from 'react';
-import './AboutUsPage.css';
 
 const aboutData = [
   {
     title: 'Our Mission',
     content:
-      "We created Samaro to be a handy tool for all your social events — from birthdays and anniversaries to weddings and outings with friends and family. Our mission is to make event planning seamless and fun, with tools that engage guests and help planners stay organized.",
+      "We created EazyInvites to be a handy tool for all your social events — from birthdays and anniversaries to weddings and outings with friends and family. Our mission is to make event planning seamless and fun, with tools that engage guests and help planners stay organized.",
   },
   {
     title: 'What We Offer',
     content:
-      "Samaro is a unique web app that helps you host your events by adding guests, sharing and collecting photos, and elevating the overall event experience. Since everyone uses WhatsApp, our bot lets you use most features directly on WhatsApp without downloading any other app.",
+      "EazyInvites is a unique web app that helps you host your events by creating beautiful invitations, managing guests, and elevating the overall event experience. Our AI-powered platform makes creating stunning invitations effortless and engaging.",
   },
   {
     title: 'Our Vision',
@@ -27,24 +26,44 @@ const aboutData = [
 
 export default function AboutUsPage() {
   return (
-    <div className="about-wrapper">
-      <nav className="breadcrumb">
-        <span>Home</span> &gt; <span className="breadcrumb-current">About Us</span>
+    <div className="max-w-4xl mx-auto px-5 py-10 font-sans text-gray-800 leading-relaxed min-h-screen">
+      {/* Breadcrumb */}
+      <nav className="text-sm mb-5 text-gray-500">
+        <span>Home</span> &gt; <span className="text-gray-700 font-semibold">About Us</span>
       </nav>
 
-      <h1 className="about-title">About Us</h1>
+      {/* Main Title */}
+      <h1 className="text-4xl md:text-5xl font-black mb-5 text-center text-gray-900 tracking-wide">
+        About Us
+      </h1>
 
-      <p className="about-intro">
-        We created Samaro to be a handy tool for all your social events whether it's a birthday, an outing with friends and family, an anniversary, or even a wedding. Samaro aims to make planning social events fun and be the ultimate solution for planners, guests, and vendors.
+      {/* Intro Paragraph */}
+      <p className="max-w-3xl mx-auto mb-10 text-lg md:text-xl text-center text-gray-600 font-medium leading-loose">
+        We created EazyInvites to be a handy tool for all your social events whether it's a birthday, an outing with friends and family, an anniversary, or even a wedding. EazyInvites aims to make planning social events fun and be the ultimate solution for planners, guests, and vendors.
       </p>
 
-      <div className="about-content">
+      {/* Content Sections */}
+      <div className="flex flex-col gap-9">
         {aboutData.map(({ title, content }, index) => (
-          <section key={index} className="about-section">
-            <h2 className="section-title">{title}</h2>
-            <p className="section-content">{content}</p>
+          <section 
+            key={index} 
+            className="bg-white p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-gray-100"
+          >
+            <h2 className="text-2xl font-bold mb-3 text-gray-900 tracking-wide">
+              {title}
+            </h2>
+            <p className="text-base text-gray-600 leading-relaxed">
+              {content}
+            </p>
           </section>
         ))}
+      </div>
+
+      {/* Add some bottom spacing for better UX */}
+      <div className="mt-16 text-center">
+        <p className="text-gray-500 text-sm">
+          Ready to create amazing events? Let's get started!
+        </p>
       </div>
     </div>
   );

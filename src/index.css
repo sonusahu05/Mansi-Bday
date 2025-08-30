@@ -1,10 +1,15 @@
-/* index.css */
+/* Import Inter font from Google Fonts - Must come first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Import Tailwind CSS */
+@import "tailwindcss";
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  color-scheme: light;
   color: #213547;
   background-color: #ffffff;
 
@@ -12,27 +17,161 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth fade-in animation for shipping policy */
+@keyframes smoothFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Blog page fade-in animation */
+@keyframes blogFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Contact page animations */
+@keyframes contactFadeIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cookie policy fade-in animation */
+@keyframes cookieFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Help page fade-in animation */
+@keyframes helpFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Privacy page fade-in animation */
+@keyframes privacyFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Refund page fade-in animation */
+@keyframes refundFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating label styles for signup */
+.floating-label {
+  position: relative;
+}
+
+.floating-label input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.8px solid #ccc;
+  font-size: 0.95rem;
+  outline-offset: 2px;
+  background: #fafafa;
+  color: #222;
+  transition: border-color 0.25s ease;
+}
+
+.floating-label input::placeholder {
+  color: transparent;
+}
+
+.floating-label input:focus {
+  border-color: #fb6da0;
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(251, 109, 160, 0.25);
+}
+
+.floating-label label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: #666;
+  font-size: 1rem;
+  font-weight: 500;
+  pointer-events: none;
+  user-select: none;
+  transition: 0.3s ease all;
+  background: white;
+  padding: 0 4px;
+}
+
+.floating-label input:focus + label,
+.floating-label input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: #fb6da0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .flex {
+    flex-direction: column;
+  }
+  
+  .h-screen {
+    height: auto;
+  }
 }
 
 body {
   margin: 0;
-  min-width: 320px;
+  padding: 0;
   min-height: 100vh;
 }
 
-/* Links */
-a {
-  font-weight: 500;
-  color: #ec3539;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+#root {
+  min-height: 100vh;
 }

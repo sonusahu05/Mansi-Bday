@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./PricingPage.css";
 
 const personalPlans = [
   {
@@ -152,24 +151,24 @@ const PricingPage = () => {
   };
 
   return (
-    <div className="pricing-container">
-      <div className="badge">🎖️ Pricing</div>
-      <h1 className="pricing-title">Choose a plan & start today</h1>
-      <p className="pricing-subtitle">
+    <div className="font-['Inter',sans-serif] max-w-[1200px] mx-auto my-[100px] px-5 py-10 text-center">
+      <div className="inline-block border border-[#ccc] rounded-[20px] px-[14px] py-[6px] font-medium mb-5">🎖️ Pricing</div>
+      <h1 className="text-[2.2rem] font-bold">Choose a plan & start today</h1>
+      <p className="text-base text-[#555] mt-[10px] mb-[30px]">
         Innovative event experience and AI media sharing at best prices!
       </p>
 
-      <div className="discount-section">
-        <p className="discount-text">
-          Get 30% off <span className="divider">|</span> Ends in
+      <div className="my-[30px] text-[0.95rem] text-[#9a3b53]">
+        <p className="inline mr-[5px]">
+          Get 30% off <span className="mx-[5px] text-[#ccc]">|</span> Ends in
         </p>
-        <span className="timer-box">{formatTime()}</span>
-        <p className="discount-code">Use Code : <strong>OOH30S</strong></p>
+        <span className="bg-[#9a3b53] text-white px-[10px] py-1 rounded-lg font-bold ml-[10px]">{formatTime()}</span>
+        <p className="mt-[5px] font-medium">Use Code : <strong>OOH30S</strong></p>
       </div>
 
-      <div className="plan-type-toggle">
+      <div className="flex justify-center my-5">
         <button
-          className={`plan-tab ${activeTab === "personal" ? "active" : ""}`}
+          className={`px-5 py-[10px] mx-[5px] border border-[#ddd] rounded-[10px] bg-white cursor-pointer font-medium ${activeTab === "personal" ? "bg-[#f3f3f3]" : ""}`}
           onClick={() => {
             setActiveTab("personal");
             setSelectedCardIndex(null);
@@ -178,7 +177,7 @@ const PricingPage = () => {
           Personal
         </button>
         <button
-          className={`plan-tab ${activeTab === "photographer" ? "active" : ""}`}
+          className={`px-5 py-[10px] mx-[5px] border border-[#ddd] rounded-[10px] bg-white cursor-pointer font-medium ${activeTab === "photographer" ? "bg-[#f3f3f3]" : ""}`}
           onClick={() => {
             setActiveTab("photographer");
             setSelectedCardIndex(null);
@@ -188,63 +187,70 @@ const PricingPage = () => {
         </button>
       </div>
 
-      <div className="billing-toggle">
-        <label className="switch">
+      <div className="mt-[30px] mb-10 text-center">
+        <label className="relative inline-block w-[60px] h-[30px] mr-[15px]">
           <input
             type="checkbox"
             checked={isYearly}
             onChange={() => setIsYearly(!isYearly)}
+            className="opacity-0 w-0 h-0"
           />
-          <span className="slider"></span>
+          <span className="absolute cursor-pointer bg-[#9a3b53] rounded-[30px] top-0 left-0 right-0 bottom-0 transition-all duration-400 before:content-[''] before:absolute before:h-[22px] before:w-[22px] before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-400 peer-checked:before:translate-x-[30px]"></span>
         </label>
-        <div className="billing-labels">
+        <div className="flex justify-center gap-[60px] font-medium mt-[5px]">
           <span>Monthly</span>
           <span>Yearly</span>
         </div>
-        <div className="discount-hint">33% cheaper than monthly</div>
+        <div className="text-[#9a3b53] text-[0.8rem] mt-[5px]">33% cheaper than monthly</div>
       </div>
 
-      <div className="pricing-cards">
+      <div className="flex overflow-x-auto gap-5 py-5">
         {plans.map((plan, index) => (
           <div
             key={index}
-            className={`pricing-card ${selectedCardIndex === index ? "highlight" : ""}`}
+            className={`flex-[0_0_280px] bg-[#fdf7f7] rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.05)] p-5 text-left border border-[#eee] transition-all duration-300 cursor-pointer hover:-translate-y-[5px] hover:shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:border-[#d48b9c] ${
+              selectedCardIndex === index 
+                ? "bg-[#9a3b53] text-white border-2 border-[#9a3b53] scale-[1.03]" 
+                : ""
+            }`}
             onClick={() => handleCardClick(index)}
           >
-            <div className="card-header">
-              <h3>{plan.name}</h3>
-              {plan.tag && <span className="tag">{plan.tag}</span>}
-              <div className="price">
-                <span>{isYearly ? plan.priceYearly : plan.priceMonthly}</span>
+            <div className="mb-2">
+              <h3 className="mb-2">{plan.name}</h3>
+              {plan.tag && <span className={`${selectedCardIndex === index ? "bg-white text-[#9a3b53]" : "bg-white text-[#9a3b53]"} text-xs px-2 py-[2px] rounded-xl font-bold mb-[10px] inline-block`}>{plan.tag}</span>}
+              <div className="text-[1.4rem] font-bold">
+                <span className={selectedCardIndex === index ? "text-white" : ""}>{isYearly ? plan.priceYearly : plan.priceMonthly}</span>
                 {(isYearly ? plan.oldPriceYearly : plan.oldPriceMonthly) && (
-                  <span className="old-price">
+                  <span className={`line-through text-[0.9rem] ml-[10px] ${selectedCardIndex === index ? "text-white" : "text-[#999]"}`}>
                     {isYearly ? plan.oldPriceYearly : plan.oldPriceMonthly}
                   </span>
                 )}
               </div>
-              <small className="price-note">
+              <small className={`text-xs mt-[2px] ${selectedCardIndex === index ? "text-white" : ""}`}>
                 +taxes ({isYearly ? "Monthly billed yearly" : "Monthly billing"})
               </small>
             </div>
-            <button className="cta-btn">{plan.cta || "Purchase"}</button>
-            <ul className="features">
+            <button className={`${selectedCardIndex === index ? "bg-white text-[#9a3b53]" : "bg-black text-white"} p-[10px] w-full border-none rounded-[10px] mt-[15px] mb-[15px] font-semibold cursor-pointer`}>
+              {plan.cta || "Purchase"}
+            </button>
+            <ul className="list-none pl-0 text-[0.9rem]">
               {plan.features.map((item, idx) => (
-                <li key={idx}>✔ {item}</li>
+                <li key={idx} className={`mb-2 ${selectedCardIndex === index ? "text-white" : ""}`}>✔ {item}</li>
               ))}
             </ul>
           </div>
         ))}
       </div>
-      {/* ✅ Join Samaro Banner Section */}
-      <div className="samaro-banner">
-        <div className="samaro-offer">Hurry ! Flat 50% off on Personal Events</div>
-        <h2 className="samaro-title">Join EazyInvites</h2>
-        <p className="samaro-subtitle">
+      
+      <div className="bg-[#f6efed] rounded-[20px] p-10 mt-[60px] text-left">
+        <div className="bg-[#b05a7a] text-white inline-block px-[14px] py-[6px] text-[0.8rem] rounded-[20px] font-semibold mb-3">Hurry ! Flat 50% off on Personal Events</div>
+        <h2 className="text-[2rem] font-bold text-[#9a3b53] my-[10px]">Join EazyInvites</h2>
+        <p className="text-base text-[#9a3b53] mb-[25px]">
           Host your next event for free with EazyInvites and bring your ideas to life !
         </p>
-        <div className="samaro-buttons">
-          <button className="samaro-btn primary">Sign Up</button>
-          <button className="samaro-btn">Whatsapp Us</button>
+        <div className="flex gap-[15px]">
+          <button className="px-[25px] py-[10px] border-2 border-[#9a3b53] rounded-[10px] bg-[#9a3b53] text-white font-semibold cursor-pointer transition-all duration-300">Sign Up</button>
+          <button className="px-[25px] py-[10px] border-2 border-[#9a3b53] rounded-[10px] bg-white text-[#9a3b53] font-semibold cursor-pointer transition-all duration-300">Whatsapp Us</button>
         </div>
       </div>
     </div>
