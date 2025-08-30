@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-// import "./LandingPage.css";
 import card1 from '/public/LandingPage/arancia-rossa-48599.avif'; // replace with actual paths
 import card2 from '/public/LandingPage/island-time-48254.avif';
 
@@ -144,7 +143,7 @@ const TrendingSection = () => {
               />
 
               {/* Footer */}
-              <div className="flex justify-between items-center bg-gray-100 w-[112%] px-5 py-2 rounded-b-2xl -mb-2">
+              <div className="flex justify-between items-center bg-gray-100 w-[112%] px-5 py-4 rounded-b-2xl -mb-2">
                 <span className="text-lg font-medium text-gray-900">{title}</span>
                 <button className="bg-indigo-500 w-7 h-7 flex items-center justify-center rounded-full text-white shadow-md hover:bg-indigo-600 transition-colors">
                   <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
