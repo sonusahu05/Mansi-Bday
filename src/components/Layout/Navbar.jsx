@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link } from 'react-router-dom';
-import logo from "/eazyvenue-logo.svg";
+import logoUrl from "/eazyvenue-logo.svg?url";
 import { FaSearch, FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 
 const trendingLinks = [
@@ -188,7 +188,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center gap-2.5 flex-shrink-0">
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="Logo" className="h-[40px] md:h-[50px]" />
+            <img src={logoUrl} alt="Logo" className="h-[40px] md:h-[50px]" />
           </Link>
         </div>
 
