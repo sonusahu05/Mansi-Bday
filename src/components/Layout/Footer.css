@@ -1,0 +1,91 @@
+/* Footer.css */
+
+.footer {
+  background-color: #A55578;
+  color: #fff;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 30px;
+}
+
+.footer-branding {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  font-family: 'Georgia', cursive;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  font-size: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.social-icons svg {
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-icons svg:hover {
+  transform: scale(1.2);
+  color: #ddd;
+}
+
+.footer-links {
+  display: flex;
+  flex: 2;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  min-width: 300px;
+}
+
+.link-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+}
+
+.link-column h4 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.link-column a {
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.link-column a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.95rem;
+  color: #f0f0f0;
+}

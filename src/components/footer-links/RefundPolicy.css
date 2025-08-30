@@ -1,0 +1,60 @@
+.refund-container {
+  max-width: 800px;
+  margin: 100px auto 40px;
+  padding: 0 20px;
+  color: #2a2f3b;
+  font-family: 'Arial', sans-serif;
+
+  /* Smooth fade-in with slight upward movement */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: smoothFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes smoothFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.breadcrumb {
+  font-size: 0.875rem; /* 14px */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  font-family: 'Arial', sans-serif;
+}
+
+.breadcrumb-link {
+  color: #bfbfbf; /* Light grey */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #7a7a7a; /* Slightly darker on hover */
+}
+
+.breadcrumb-arrow {
+  display: block;
+}
+
+.breadcrumb-current {
+  font-weight: 600;
+  color: #3b4454; /* Dark grey/blue */
+}
+
+.refund-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #000;
+}
+
+.refund-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,666 @@
+/* Split Container Layout */
+.auth-split-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #fdf6f9;
+}
+
+/* Left Panel: Carousel */
+.auth-left-panel {
+  flex: 1;
+  position: relative;
+  background: #fdf6f9;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-carousel {
+  width: 400px;
+  height: 590px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-slide {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* Optional: Caption or Overlay if needed */
+
+.carousel-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+  z-index: 1;
+  border-radius: 20px;
+}
+
+
+/* Right Panel: Login Form */
+.auth-right-panel {
+  flex: 1;
+  background-color: #fdf6f9; /* same as container, no visible division */
+  color: #222;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.auth-form-wrapper {
+  width: 100%;
+  max-width: 400px;
+  padding: 2.5rem 2rem;
+  background: white; /* keeps form area distinct */
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+/* Logo Circle */
+.auth-logo-circle {
+  background: #e8ecf3;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #4b5c6b;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Heading */
+.auth-form-wrapper h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #1e2a38;
+  text-align: center;
+}
+
+/* Input Fields */
+.auth-field-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.4rem;
+}
+
+.auth-field-group label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 0.4rem;
+}
+
+.auth-input {
+  background: #f9f9f9;
+  border: 1px solid #dcdce1;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #333;
+  font-size: 0.95rem;
+  transition: border 0.2s ease;
+}
+
+.auth-input:focus {
+  border: 1px solid #fb6da0;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(251, 109, 160, 0.2);
+}
+
+.auth-input::placeholder {
+  color: #999;
+}
+
+/* Forgot Password Link */
+.auth-checkbox-row {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-checkbox-row a {
+  color: #fb6da0;
+  text-decoration: none;
+}
+
+.auth-checkbox-row a:hover {
+  text-decoration: underline;
+}
+
+/* Submit Button */
+.auth-submit-btn {
+  background: linear-gradient(135deg, #f21b6a, #fb6da0);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.05rem;
+  transition: background 0.3s ease;
+}
+
+.auth-submit-btn:hover {
+  background: linear-gradient(135deg, #e60b5e, #f94e8b);
+}
+
+/* Signup Link */
+.auth-form-wrapper a {
+  color: #f15b84;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-form-wrapper a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .auth-split-container {
+    flex-direction: column;
+  }
+
+  .auth-left-panel {
+    height: auto;
+    padding: 1rem;
+  }
+
+  .auth-carousel {
+    width: 100%;
+    max-width: 90%;
+    height: 300px;
+  }
+
+  .auth-right-panel {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-form-wrapper {
+    padding: 2rem 1.5rem;
+  }
+}
+
+
+
+/* signup */
+/* Signup form wrapper */
+.signup-form-wrapper {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  max-width: 450px;
+  box-shadow: 0 18px 40px rgba(251, 109, 160, 0.15);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Grid for form fields */
+.signup-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 1.5rem;
+  margin-top: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Make some fields full width */
+.signup-form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+/* Floating label container */
+.floating-label.signup-floating-label {
+  position: relative;
+}
+
+/* Inputs */
+.signup-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.8px solid #ccc;
+  font-size: 0.95rem;
+  outline-offset: 2px;
+  background: #fafafa;
+  color: #222;
+  transition: border-color 0.25s ease;
+}
+
+/* Hide placeholder text but keep space for floating label */
+.signup-input::placeholder {
+  color: transparent;
+}
+
+/* Focus border */
+.signup-input:focus {
+  border-color: #fb6da0;
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(251, 109, 160, 0.25);
+}
+
+/* Floating label */
+.floating-label.signup-floating-label label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: #666;
+  font-size: 1rem;
+  font-weight: 500;
+  pointer-events: none;
+  user-select: none;
+  transition: 0.3s ease all;
+  background: white;
+  padding: 0 4px;
+}
+
+/* Label moves up when input focused or has content */
+.signup-input:focus + label,
+.signup-input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: #fb6da0;
+}
+
+/* Gender fieldset styles */
+.signup-gender-group {
+  grid-column: 1 / -1;
+  border: none;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.signup-gender-group legend {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.signup-gender-group label {
+  margin-right: 1.6rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: #444;
+  display: inline-flex;
+  align-items: center;
+}
+
+.signup-gender-group input[type="radio"] {
+  margin-right: 0.5rem;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* Sign Up button */
+.signup-submit-btn {
+  width: 100%;
+  padding: 14px 0;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f21b6a, #fb6da0);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  user-select: none;
+}
+
+.signup-submit-btn:hover {
+  background: linear-gradient(135deg, #e60b5e, #f94e8b);
+}
+
+/* Bottom link */
+.auth-links {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.auth-links a {
+  color: #ff3b3b;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.auth-links a:hover {
+  color: #d12e2e;
+}
+
+/* Icon at top */
+.auth-logo-circle {
+  width: 50px;
+  height: 50px;
+  background-color: #e4eaf1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 24px;
+  color: #fb6da0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .signup-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out both;
+}
+
+/* Responsive: stack panels vertically and scale components */
+@media (max-width: 768px) {
+  .auth-split-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .auth-left-panel,
+  .auth-right-panel {
+    flex: none;
+    width: 100%;
+  }
+
+  .auth-carousel {
+    width: 90%;
+    height: 280px;
+    margin-bottom: 2rem;
+  }
+
+  .auth-form-wrapper,
+  .signup-form-wrapper {
+    padding: 2rem 1.5rem;
+    max-width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .auth-logo-circle {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .signup-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Extra small screens (phones < 480px) */
+@media (max-width: 480px) {
+  .auth-form-wrapper h2,
+  .signup-form-wrapper h2 {
+    font-size: 1.5rem;
+  }
+
+  .auth-submit-btn,
+  .signup-submit-btn {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .auth-logo-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .auth-left-panel {
+    padding: 1rem 0;
+  }
+}
+/* === Carousel Section (Phone-style) === */
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel {
+  position: relative;
+  width: 300px;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slides around the frame */
+.slide {
+  position: absolute;
+  width: 260px;
+  height: 480px;
+  object-fit: cover;
+  border-radius: 40px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.5s ease;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.6s ease;
+
+}
+
+.activeSlide {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  z-index: 1;
+}
+
+.lastSlide {
+  opacity: 0.6;
+  transform: translateX(-180px) scale(0.85);
+  z-index: 0;
+}
+
+.nextSlide {
+  opacity: 0.6;
+  transform: translateX(180px) scale(0.85);
+  z-index: 0;
+}
+
+/* Phone Frame (on top of images) */
+.phone-frame {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 523px;
+  border: 5px solid #000;
+  border-radius: 60px;
+  background-color: #fff;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  pointer-events: none; /* Let clicks go through */
+}
+
+/* Notch */
+.phone-frame::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 28px;
+  background: black;
+  border-radius: 20px / 50%;
+  z-index: 30;
+}
+
+/* Camera */
+.phone-frame::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 150px;
+  width: 12px;
+  height: 12px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Side buttons */
+.side-button-left,
+.side-button-right,
+.side-mute-switch {
+  position: absolute;
+  background: linear-gradient(145deg, #444, #222);
+  border-radius: 20px;
+  box-shadow: inset 2px 2px 4px rgba(255,255,255,0.1), inset -2px -2px 4px rgba(0,0,0,0.7);
+}
+
+.side-button-left {
+  top: 100px;
+  left: -7px;
+  width: 5px;
+  height: 60px;
+}
+
+.side-mute-switch {
+  top: 80px;
+  left: -7px;
+  width: 5px;
+  height: 18px;
+}
+
+.side-button-right {
+  top: 130px;
+  right: -7px;
+  width: 5px;
+  height: 90px;
+}
+
+/* Capsule area inside phone */
+.phone-frame-capsule {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 52px;
+  position: relative;
+}
+
+.phone-inner {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+
+/* Navigation buttons */
+.nav-btn {
+  background: #fff;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.7rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 20; /* increase z-index */
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  user-select: none;
+}
+
+.nav-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Position buttons inside the container */
+.nav-btn.left {
+  position: absolute;
+  left: -180px; /* moved inside */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-btn.right {
+  position: absolute;
+  right: -180px; /* moved inside */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-split-container {
+    flex-direction: column;
+  }
+
+  .auth-left-panel {
+    height: auto;
+    padding: 1rem;
+  }
+
+  .carousel-container {
+    margin-top: 2rem;
+  }
+
+  .carousel {
+    width: 260px;
+    height: 460px;
+  }
+
+  .phone-frame {
+    width: 260px;
+    height: 460px;
+  }
+
+  .nav-btn.left {
+    left: -40px;
+  }
+
+  .nav-btn.right {
+    right: -40px;
+  }
+}
