@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import logo from "../../assets/brand/logo.svg";
 import { FaSearch, FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 
@@ -26,7 +27,44 @@ const trendingCards = [
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const timeoutRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Firebase authentication state listener
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Handle logout
+  const handleLogout = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth);
+      setUser(null);
+      setProfileDropdownOpen(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Firebase Error:", error.message);
+    }
+  };
+
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    if (!profileDropdownOpen) return;
+    function handleClick(e) {
+      if (!e.target.closest('.profile-dropdown-trigger')) {
+        setProfileDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [profileDropdownOpen]);
   
   const menuItems = [
     {
@@ -321,16 +359,90 @@ const Navbar = () => {
       <div className="flex items-center gap-4 flex-shrink-0">
         {/* Desktop (md and up) */}
         <div className="max-md:hidden flex items-center gap-3 lg:gap-4">
-          <Link
-            to="/login"
-            className="bg-gray-100 text-gray-600 px-4 py-3 rounded-[30px] font-semibold text-center transition-colors duration-200 hover:bg-gray-200"
-          >
-            Log in
-          </Link>
+          {!user ? (
+            <>
+              <Link
+                to="/login"
+                className="bg-gray-100 text-gray-600 px-4 py-3 rounded-[30px] font-semibold text-center transition-colors duration-200 hover:bg-gray-200"
+              >
+                Log in
+              </Link>
 
-          <button className="bg-[#9b4de0] text-white border-2 border-[#9b4de0] rounded-[30px] px-5 lg:px-6 py-2.5 font-bold cursor-pointer hover:bg-[#8a42c7] hover:border-[#8a42c7] transition-colors duration-200 whitespace-nowrap text-sm lg:text-base shadow-lg">
-            Go Premium
-          </button>
+              <button className="bg-[#9b4de0] text-white border-2 border-[#9b4de0] rounded-[30px] px-5 lg:px-6 py-2.5 font-bold cursor-pointer hover:bg-[#8a42c7] hover:border-[#8a42c7] transition-colors duration-200 whitespace-nowrap text-sm lg:text-base shadow-lg">
+                Go Premium
+              </button>
+            </>
+          ) : (
+            <div className="flex items-center gap-3 relative profile-dropdown-trigger">
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt={user.displayName || user.email}
+                  className="w-10 h-10 rounded-full object-cover shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                  onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                />
+              ) : (
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-[#9b4de0] text-white text-lg font-bold shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                  onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                >
+                  {user.email ? user.email.slice(0, 2).toUpperCase() : 'U'}
+                </div>
+              )}
+
+              {profileDropdownOpen && (
+                <div
+                  className="absolute right-0 top-12 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 z-[10000] animate-fade-in"
+                  style={{
+                    boxShadow: "0 4px 24px 0 rgba(155, 77, 224, 0.15)",
+                  }}
+                >
+                  <div className="p-4 border-b border-gray-100">
+                    <div className="flex items-center gap-3">
+                      {user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt={user.displayName || user.email}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[#9b4de0] text-white text-xl font-bold">
+                          {user.email ? user.email.slice(0, 2).toUpperCase() : 'U'}
+                        </div>
+                      )}
+                      <div>
+                        <p className="font-semibold text-gray-900">{user.displayName || 'User'}</p>
+                        <p className="text-sm text-gray-500">{user.email}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="p-2">
+                    <Link
+                      to="/profile"
+                      className="block w-full text-left px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200"
+                      onClick={() => setProfileDropdownOpen(false)}
+                    >
+                      Profile Settings
+                    </Link>
+                    <Link
+                      to="/my-designs"
+                      className="block w-full text-left px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200"
+                      onClick={() => setProfileDropdownOpen(false)}
+                    >
+                      My Designs
+                    </Link>
+                    <button
+                      className="block w-full text-left px-4 py-3 rounded-xl hover:bg-gray-50 text-red-600 font-medium transition-colors duration-200"
+                      onClick={handleLogout}
+                    >
+                      Log out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Mobile (below md) */}
@@ -426,15 +538,69 @@ const Navbar = () => {
 
             {/* Mobile Login/Premium */}
             <div className="flex flex-col space-y-3 pt-4">
-              <Link 
-                to="/login" 
-                className="bg-gray-100 text-gray-600 px-4 py-3 rounded-[30px] font-semibold text-center transition-colors duration-200 hover:bg-gray-200"
-              >
-                Log in
-              </Link>
-              <button className="bg-[#9b4de0] text-white px-4 py-3 rounded-[30px] font-semibold transition-colors duration-200 hover:bg-[#8a42c7]">
-                Go Premium
-              </button>
+              {!user ? (
+                <>
+                  <Link 
+                    to="/login" 
+                    className="bg-gray-100 text-gray-600 px-4 py-3 rounded-[30px] font-semibold text-center transition-colors duration-200 hover:bg-gray-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Log in
+                  </Link>
+                  <button 
+                    className="bg-[#9b4de0] text-white px-4 py-3 rounded-[30px] font-semibold transition-colors duration-200 hover:bg-[#8a42c7]"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Go Premium
+                  </button>
+                </>
+              ) : (
+                <div className="flex flex-col items-center space-y-3">
+                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl w-full">
+                    {user.photoURL ? (
+                      <img
+                        src={user.photoURL}
+                        alt={user.displayName || user.email}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[#9b4de0] text-white text-xl font-bold">
+                        {user.email ? user.email.slice(0, 2).toUpperCase() : 'U'}
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900 text-sm">{user.displayName || 'User'}</p>
+                      <p className="text-xs text-gray-500">{user.email}</p>
+                    </div>
+                  </div>
+                  
+                  <Link
+                    to="/profile"
+                    className="w-full bg-gray-100 text-gray-600 px-4 py-3 rounded-[30px] font-semibold text-center transition-colors duration-200 hover:bg-gray-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Profile Settings
+                  </Link>
+                  
+                  <Link
+                    to="/my-designs"
+                    className="w-full bg-gray-100 text-gray-600 px-4 py-3 rounded-[30px] font-semibold text-center transition-colors duration-200 hover:bg-gray-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    My Designs
+                  </Link>
+                  
+                  <button
+                    className="w-full bg-red-500 text-white px-4 py-3 rounded-[30px] font-semibold transition-colors duration-200 hover:bg-red-600"
+                    onClick={() => {
+                      handleLogout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    Log out
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

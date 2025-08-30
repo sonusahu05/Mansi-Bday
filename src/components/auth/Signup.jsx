@@ -1,16 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import axios from "axios";
+import LoginWithGoogle from "../auth/GoogleAuth";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { app } from "../auth/secret/secret";
 
 // Import phone screen images
 import phoneImage1 from '../../assets/phone_screen/1.jpeg';
 import phoneImage2 from '../../assets/phone_screen/2.jpeg';
 import phoneImage3 from '../../assets/phone_screen/3.jpeg';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const db = getFirestore(app);
+
 const images = [phoneImage1, phoneImage2, phoneImage3];
+
 export default function Signup() {
+  // Carousel state
   const [current, setCurrent] = useState(0);
   const length = images.length;
+
+  // Registration state
+  const [registerData, setRegisterData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    contact: "",
+    state: "",
+    gender: "",
+    otp: "",
+  });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
   const nextSlide = () => {
     setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1));
@@ -24,6 +51,225 @@ export default function Signup() {
     const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
   }, [current]);
+
+  // Navigate to verify email when OTP is received
+  useEffect(() => {
+    if (registerData.otp !== "") {
+      navigate("/verify-email", { state: { registerData } });
+    }
+  }, [registerData.otp, navigate]);
+
+  // Registration functions
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const { firstName, lastName, email, password, confirmPassword, contact, gender, state } = registerData;
+    
+    // Basic validation
+    if (!firstName || !lastName || !email || !password || !confirmPassword || !contact || !gender) {
+      setError("Please fill in all required fields");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setError("Invalid email format");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      console.log("Starting registration process for:", email);
+
+      // Check if email exists using Firestore first, then fallback to API
+      let emailExists = false;
+      try {
+        emailExists = await checkEmailExistsFirestore(email);
+        console.log("Firestore email check result:", emailExists);
+      } catch (firestoreError) {
+        console.warn("Firestore email check failed, falling back to API:", firestoreError);
+        try {
+          emailExists = await checkEmailExists(email);
+          console.log("API email check result:", emailExists);
+        } catch (apiError) {
+          console.warn("Both email check methods failed, proceeding with registration");
+        }
+      }
+
+      if (emailExists) {
+        setError("Email is already registered. Please login or use a different email.");
+        return;
+      }
+
+      // Try to save user data to Firestore
+      try {
+        await saveUserToFirestore({
+          firstName,
+          lastName,
+          email,
+          contact,
+          state: state || "",
+          gender,
+          password, // We'll pass this to verification for backend registration
+          createdAt: new Date().toISOString(),
+          emailVerified: false
+        });
+        console.log("Successfully saved to Firestore");
+      } catch (firestoreError) {
+        console.error("Failed to save to Firestore:", firestoreError);
+        // Continue with registration even if Firestore fails
+        console.log("Continuing with registration despite Firestore error");
+      }
+
+      // Send OTP
+      const otpResponse = await sendOtp(email);
+
+      if (otpResponse.success) {
+        // Include user data in registerData for verification
+        setRegisterData({ 
+          ...registerData, 
+          otp: otpResponse.otp,
+          userData: {
+            firstName,
+            lastName,
+            email,
+            contact,
+            state,
+            gender
+          }
+        });
+      } else {
+        setError(otpResponse.message || "Error generating OTP");
+      }
+    } catch (error) {
+      setError("Registration failed. Please try again later.");
+      console.error("Registration error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Firestore functions
+  const checkEmailExistsFirestore = async (email) => {
+    try {
+      console.log("Checking if email exists in Firestore:", email);
+      const userDoc = doc(db, "users", email);
+      const userSnapshot = await getDoc(userDoc);
+      const exists = userSnapshot.exists();
+      console.log("Email exists result:", exists);
+      return exists;
+    } catch (error) {
+      console.error("Error checking email in Firestore:", {
+        code: error.code,
+        message: error.message,
+        stack: error.stack
+      });
+      // Fall back to false if there's an error checking
+      return false;
+    }
+  };
+
+  const saveUserToFirestore = async (userData) => {
+    try {
+      const { email, password, ...personalDetails } = userData;
+      
+      console.log("Attempting to save user to Firestore:", { email, personalDetails });
+      
+      // Create document structure: users/email/personal_details
+      const userDocRef = doc(db, "users", email);
+      const personalDetailsRef = doc(db, "users", email, "personal_details", "info");
+
+      console.log("Firestore references created successfully");
+
+      // Save basic user info
+      const userDocData = {
+        email: email,
+        createdAt: personalDetails.createdAt,
+        emailVerified: personalDetails.emailVerified,
+        lastUpdated: new Date().toISOString()
+      };
+
+      console.log("Saving user document:", userDocData);
+      await setDoc(userDocRef, userDocData);
+      console.log("User document saved successfully");
+
+      // Save personal details in subcollection
+      const personalDetailsData = {
+        firstName: personalDetails.firstName,
+        lastName: personalDetails.lastName,
+        contact: personalDetails.contact,
+        state: personalDetails.state,
+        gender: personalDetails.gender,
+        createdAt: personalDetails.createdAt,
+        updatedAt: new Date().toISOString()
+      };
+
+      console.log("Saving personal details:", personalDetailsData);
+      await setDoc(personalDetailsRef, personalDetailsData);
+      console.log("Personal details saved successfully");
+
+      console.log("User data saved to Firestore successfully");
+    } catch (error) {
+      console.error("Detailed Firestore error:", {
+        code: error.code,
+        message: error.message,
+        stack: error.stack
+      });
+      throw new Error(`Failed to save user data: ${error.message}`);
+    }
+  };
+
+  const handleChange = (e) => {
+    setRegisterData({
+      ...registerData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Backend API functions (keeping as backup)
+  const checkEmailExists = async (email) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/onboard/check-registration`,
+        { email }
+      );
+      return response.data.exists;
+    } catch (error) {
+      console.error("Error checking email via API:", error);
+      return false;
+    }
+  };
+
+  const sendOtp = async (email) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/onboard/send-otp`,
+        { email }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      return { success: false, message: "Failed to send OTP" };
+    }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   return (
     <div className="flex h-screen w-full font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif] bg-[#fdf6f9]"
@@ -98,7 +344,17 @@ export default function Signup() {
           <div className="w-[50px] h-[50px] bg-[#e4eaf1] rounded-full flex justify-center items-center mb-4 text-2xl text-[#fb6da0] mx-auto md:w-[50px] md:h-[50px] md:text-xl">🌸</div>
           <h2 className="text-3xl font-semibold mb-8 text-[#1e2a38] text-center md:text-2xl">Create Account</h2>
 
-          <form>
+          {/* Google Auth Component */}
+          <LoginWithGoogle />
+
+          <form onSubmit={handleRegister}>
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-4 text-sm">
+                {error}
+              </div>
+            )}
+
             <div className="space-y-4 mb-6">
               {/* First Row: First Name & Last Name */}
               <div className="grid grid-cols-2 gap-4">
@@ -106,7 +362,10 @@ export default function Signup() {
                   <input
                     type="text"
                     id="firstName"
+                    name="firstName"
                     placeholder=" "
+                    value={registerData.firstName}
+                    onChange={handleChange}
                     required
                     autoComplete="given-name"
                   />
@@ -118,7 +377,10 @@ export default function Signup() {
                   <input
                     type="text"
                     id="lastName"
+                    name="lastName"
                     placeholder=" "
+                    value={registerData.lastName}
+                    onChange={handleChange}
                     required
                     autoComplete="family-name"
                   />
@@ -133,7 +395,10 @@ export default function Signup() {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   placeholder=" "
+                  value={registerData.email}
+                  onChange={handleChange}
                   required
                   autoComplete="email"
                 />
@@ -146,27 +411,47 @@ export default function Signup() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="floating-label relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="password"
+                    name="password"
                     placeholder=" "
+                    value={registerData.password}
+                    onChange={handleChange}
                     required
                     autoComplete="new-password"
                   />
                   <label htmlFor="password" style={{ margin: "-.5rem" }}>
                     Password
                   </label>
+                  <button
+                    type="button"
+                    onClick={toggleShowPassword}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? '👁️' : '👁️‍🗨️'}
+                  </button>
                 </div>
                 <div className="floating-label relative">
                   <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
+                    name="confirmPassword"
                     placeholder=" "
+                    value={registerData.confirmPassword}
+                    onChange={handleChange}
                     required
                     autoComplete="new-password"
                   />
                   <label htmlFor="confirmPassword" style={{ margin: "-.5rem" }}>
                     Confirm Password
                   </label>
+                  <button
+                    type="button"
+                    onClick={toggleShowConfirmPassword}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
+                  </button>
                 </div>
               </div>
 
@@ -176,7 +461,10 @@ export default function Signup() {
                   <input
                     type="tel"
                     id="contact"
+                    name="contact"
                     placeholder=" "
+                    value={registerData.contact}
+                    onChange={handleChange}
                     required
                     autoComplete="tel"
                     pattern="[0-9\s+-]{7,15}"
@@ -190,7 +478,10 @@ export default function Signup() {
                   <input
                     type="text"
                     id="state"
+                    name="state"
                     placeholder=" "
+                    value={registerData.state}
+                    onChange={handleChange}
                     autoComplete="address-level1"
                   />
                   <label htmlFor="state" style={{ margin: "-.5rem" }}>
@@ -201,28 +492,57 @@ export default function Signup() {
 
               {/* Fifth Row: Gender */}
               <fieldset className="border-none p-0" aria-label="Gender">
-                <legend className="font-semibold text-[#555] mb-3">Gender</legend>
+                <legend className="font-semibold text-[#555] mb-3">Gender *</legend>
                 <div className="flex gap-6">
                   <label className="cursor-pointer font-semibold text-[#444] inline-flex items-center">
-                    <input type="radio" name="gender" value="male" required className="mr-2 w-[18px] h-[18px] cursor-pointer" />
+                    <input 
+                      type="radio" 
+                      name="gender" 
+                      value="male" 
+                      checked={registerData.gender === "male"}
+                      onChange={handleChange}
+                      required 
+                      className="mr-2 w-[18px] h-[18px] cursor-pointer" 
+                    />
                     Male
                   </label>
                   <label className="cursor-pointer font-semibold text-[#444] inline-flex items-center">
-                    <input type="radio" name="gender" value="female" className="mr-2 w-[18px] h-[18px] cursor-pointer" />
+                    <input 
+                      type="radio" 
+                      name="gender" 
+                      value="female" 
+                      checked={registerData.gender === "female"}
+                      onChange={handleChange}
+                      className="mr-2 w-[18px] h-[18px] cursor-pointer" 
+                    />
                     Female
                   </label>
                   <label className="cursor-pointer font-semibold text-[#444] inline-flex items-center">
-                    <input type="radio" name="gender" value="other" className="mr-2 w-[18px] h-[18px] cursor-pointer" />
+                    <input 
+                      type="radio" 
+                      name="gender" 
+                      value="other" 
+                      checked={registerData.gender === "other"}
+                      onChange={handleChange}
+                      className="mr-2 w-[18px] h-[18px] cursor-pointer" 
+                    />
                     Other
                   </label>
                 </div>
               </fieldset>
             </div>
 
-            <button type="submit" 
-                    className="w-full py-4 border-none rounded-[10px] bg-gradient-to-br from-[#f21b6a] to-[#fb6da0] text-white font-bold text-lg cursor-pointer transition-colors duration-300 select-none hover:bg-gradient-to-br hover:from-[#e60b5e] hover:to-[#f94e8b] md:text-base md:py-3" 
-                    aria-label="Sign Up Button">
-              Sign Up
+            <button 
+              type="submit" 
+              disabled={loading}
+              className={`w-full py-4 border-none rounded-[10px] text-white font-bold text-lg cursor-pointer transition-all duration-300 select-none md:text-base md:py-3 ${
+                loading 
+                  ? 'bg-gray-400 cursor-not-allowed' 
+                  : 'bg-gradient-to-br from-[#f21b6a] to-[#fb6da0] hover:bg-gradient-to-br hover:from-[#e60b5e] hover:to-[#f94e8b]'
+              }`}
+              aria-label="Sign Up Button"
+            >
+              {loading ? 'Creating Account...' : 'Sign Up'}
             </button>
           </form>
 
@@ -231,6 +551,50 @@ export default function Signup() {
           </div>
         </div>
       </div>
+      
+      {/* Floating Label Styles */}
+      <style>{`
+        .floating-label input {
+          width: 100%;
+          padding: 16px 12px 8px 12px;
+          border: 2px solid #e2e8f0;
+          border-radius: 8px;
+          font-size: 16px;
+          background: white;
+          outline: none;
+          transition: border-color 0.3s ease;
+        }
+        
+        .floating-label input:focus {
+          border-color: #fb6da0;
+        }
+        
+        .floating-label label {
+          position: absolute;
+          left: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #64748b;
+          font-size: 16px;
+          pointer-events: none;
+          transition: all 0.3s ease;
+          background: white;
+          padding: 0 4px;
+        }
+        
+        .floating-label input:focus + label,
+        .floating-label input:not(:placeholder-shown) + label {
+          top: 0;
+          transform: translateY(-50%);
+          font-size: 12px;
+          color: #fb6da0;
+          font-weight: 600;
+        }
+        
+        .floating-label input:focus + label {
+          color: #fb6da0;
+        }
+      `}</style>
     </div>
   );
 }

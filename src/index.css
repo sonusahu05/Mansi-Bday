@@ -242,6 +242,11 @@ body {
     font-family: var(--font-heading), cursive;
     letter-spacing: 0.5px;
   }
+
+  /* Fade in animation utility class */
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
 }
 
 

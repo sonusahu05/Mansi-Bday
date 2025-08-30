@@ -70,7 +70,7 @@ export default function Login() {
         loginData.password
       );
 
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       handleLoginError(error);
     }
@@ -101,15 +101,15 @@ export default function Login() {
   
 
   const handleForgotPassword = () => {
-    navigate("/forgot_password");
+    navigate("/forgot-password");
   };
 
   const handleSignUp = () => {
-    navigate("/register");
+    navigate("/signup");
   };
 
   const handleSkipLogin = () => {
-    navigate("/home");
+    navigate("/");
   };
 
   const handleChange = (e) => {
