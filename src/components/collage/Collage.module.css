@@ -1,8 +1,13 @@
+html, body, #root {
+  height: 100%;
+}
+
 .collageContainer {
   padding: 56px 20px;
   text-align: center;
-  /* warmer, celebratory background */
-  background: radial-gradient(ellipse at top left, #1f1b3a 0%, #0b1020 40%, #071026 100%);
+  /* solid dark background for full-screen look */
+  background-color: #0b0b0b;
+  background-image: none;
   min-height: 100vh;
   color: #fff;
 }
@@ -140,4 +145,31 @@
 @media (max-width: 420px) {
   .collageContainer { padding: 28px 12px; }
   .title { font-size: 1.6rem; }
+}
+
+.belatedMessage {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px 80px;
+}
+
+.messageCard {
+  max-width: 900px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 14px;
+  padding: 28px;
+  color: #f8f8ff;
+  box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+  text-align: left;
+}
+
+.messageCard h2 {
+  color: #ffd6e0;
+  margin-bottom: 14px;
+}
+
+.messageCard p {
+  color: #e6eef8;
+  line-height: 1.6;
+  margin-bottom: 12px;
 }

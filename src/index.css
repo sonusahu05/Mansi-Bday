@@ -9,9 +9,10 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light;
-  color: #213547;
-  background-color: #ffffff;
+  /* switch to dark color scheme for the whole app */
+  color-scheme: dark;
+  color: #e6eef8;
+  background-color: #0b0b0b;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -170,10 +171,13 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  background-color: #0b0b0b; /* ensure body uses dark background */
+  color: #e6eef8;
 }
 
 #root {
   min-height: 100vh;
+  background-color: #0b0b0b;
 }
 @theme {
   --color-about_us_team:   #F19A70;
