@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Collage.module.css';
 
 // Predefined row spans (different sizes) for a masonry-like layout
-const rowSpans = [28, 18, 34, 22, 26, 16, 30];
+const rowSpans = [32, 24, 48, 28, 36, 20, 40];
 const images = [
   '/src/assets/images/1.jpeg',
   '/src/assets/images/2.jpeg',

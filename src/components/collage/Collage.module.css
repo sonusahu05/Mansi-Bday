@@ -1,14 +1,16 @@
 .collageContainer {
-  padding: 48px 20px;
+  padding: 56px 20px;
   text-align: center;
-  background: linear-gradient(180deg, #071029, #081226);
+  /* warmer, celebratory background */
+  background: radial-gradient(ellipse at top left, #1f1b3a 0%, #0b1020 40%, #071026 100%);
   min-height: 100vh;
   color: #fff;
 }
 
 .title {
-  font-size: 2.4rem;
-  margin-bottom: 8px;
+  font-size: 2.6rem;
+  margin-bottom: 6px;
+  color: #ffd6e0;
 }
 
 .subtitle {
@@ -22,26 +24,29 @@
   gap: 18px;
   max-width: 1100px;
   margin: 0 auto;
-  /* create rows so items can span multiple rows */
-  grid-auto-rows: 6px;
+  /* larger base row so row-span produces sensible heights */
+  grid-auto-rows: 10px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .imageGrid { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 640px) {
+@media (max-width: 700px) {
   .imageGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 420px) {
+  .imageGrid { grid-template-columns: repeat(1, 1fr); }
 }
 
 .imageWrap {
   position: relative;
   overflow: hidden;
   border-radius: 14px;
-  height: 180px;
   background: linear-gradient(180deg, #0b1220, #071029);
   cursor: pointer;
   transition: transform 300ms ease, box-shadow 300ms ease;
-  grid-row: span var(--row-span); /* use variable to set different sizes */
+  /* remove fixed height; let grid-row span control height */
+  grid-row: span var(--row-span);
 }
 
 .imageWrap:hover {
@@ -63,7 +68,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(2,6,23,0.1), rgba(2,6,23,0.4));
+  background: linear-gradient(180deg, rgba(2,6,23,0.06), rgba(2,6,23,0.28));
   opacity: 0;
   transition: opacity 200ms ease;
 }
@@ -71,7 +76,7 @@
 .imageWrap:hover .overlay { opacity: 1; }
 
 .viewText {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.08);
   padding: 6px 12px;
   border-radius: 999px;
   font-weight: 600;
@@ -86,13 +91,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(2,6,23,0.85);
+  background: rgba(2,6,23,0.9);
   z-index: 2000;
 }
 
 .lightboxContent {
-  max-width: 90vw;
-  max-height: 86vh;
+  max-width: 92vw;
+  max-height: 88vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,13 +105,13 @@
 
 .lightboxImage {
   max-width: 100%;
-  max-height: 80vh;
-  border-radius: 8px;
-  box-shadow: 0 18px 40px rgba(2,6,23,0.7);
+  max-height: 82vh;
+  border-radius: 12px;
+  box-shadow: 0 22px 48px rgba(2,6,23,0.75);
 }
 
 .lightboxCaption {
-  margin-top: 10px;
+  margin-top: 12px;
   color: #cbd5e1;
 }
 
@@ -124,9 +129,15 @@
 }
 
 .lightboxClose { top: 20px; right: 20px; }
-.lightboxPrev { left: 24px; top: 50%; transform: translateY(-50%); }
-.lightboxNext { right: 24px; top: 50%; transform: translateY(-50%); }
+.lightboxPrev { left: 18px; top: 50%; transform: translateY(-50%); }
+.lightboxNext { right: 18px; top: 50%; transform: translateY(-50%); }
 
 .lightboxClose:hover,
 .lightboxPrev:hover,
 .lightboxNext:hover { background: rgba(255,255,255,0.12); }
+
+/* small tweaks for mobile spacing */
+@media (max-width: 420px) {
+  .collageContainer { padding: 28px 12px; }
+  .title { font-size: 1.6rem; }
+}
