@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Collage.module.css';
 
+// Import images so Vite includes them in the build
+import img1 from '../../assets/images/1.jpeg';
+import img2 from '../../assets/images/2.jpeg';
+import img3 from '../../assets/images/3.jpeg';
+import img4 from '../../assets/images/4.jpeg';
+import img5 from '../../assets/images/5.jpeg';
+import img6 from '../../assets/images/6.jpeg';
+import img7 from '../../assets/images/7.jpeg';
+
 // Predefined row spans (different sizes) for a masonry-like layout
 const rowSpans = [32, 24, 48, 28, 36, 20, 40];
-const images = [
-  '/src/assets/images/1.jpeg',
-  '/src/assets/images/2.jpeg',
-  '/src/assets/images/3.jpeg',
-  '/src/assets/images/4.jpeg',
-  '/src/assets/images/5.jpeg',
-  '/src/assets/images/6.jpeg',
-  '/src/assets/images/7.jpeg',
-];
+const images = [img1, img2, img3, img4, img5, img6, img7];
 
 const Collage = () => {
   const [activeIndex, setActiveIndex] = useState(null);
