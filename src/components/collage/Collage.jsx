@@ -40,6 +40,18 @@ const Collage = () => {
     return () => window.removeEventListener('keydown', onKey);
   }, [activeIndex]);
 
+  // Prevent background scroll when lightbox is open
+  useEffect(() => {
+    if (activeIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activeIndex]);
+
   return (
     <div className={styles.collageContainer}>
       <h1 className={styles.title}>A Small Surprise — Collage</h1>
@@ -51,7 +63,14 @@ const Collage = () => {
             key={i}
             className={styles.imageWrap}
             onClick={() => openLightbox(i)}
+            // assign CSS variable for row-span; keep value numeric for CSS calc if needed
             style={{ ['--row-span']: rowSpans[i] }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') openLightbox(i);
+            }}
+            aria-label={`Open image ${i + 1}`}
           >
             <img src={src} alt={`collage-${i + 1}`} className={styles.image} />
             <div className={styles.overlay}>
@@ -61,40 +80,89 @@ const Collage = () => {
         ))}
       </div>
 
-      {/* Belated birthday message card below the collage */}
+      {/* Belated birthday message card below the collage (Medical-lingo edition) */}
       <div className={styles.belatedMessage}>
         <div className={styles.messageCard}>
-          <h2>Happy Belated Birthday, Mansi 🎂💫</h2>
+          <h2>Happy Belated Birthday, Dr. Mansi 🩺🎂💫</h2>
 
-          <p>I know I’m super late — and honestly, I don’t even have an excuse 😭. I’m really sorry. But the good part is — now you officially belong to my closer circle 😂 Because I only start taking people for granted when they actually mean a lot to me 😌</p>
+          <p>I know main <em>kaafi late</em> hu — and honestly, there’s no medical justification for this delay 😭  
+          It’s a full-blown case of <strong>Chronic Procrastination Disorder</strong>. But silver lining — you’ve now officially entered my <strong>high-priority patient list</strong> 😂  
+          Because I only start taking people for granted once they become <em>emotionally life-saving</em> 😌</p>
 
-          <p>So today, I’m sending you a birthday cake 🎂 and your favourite Caramia Chocolate Therapy Pint 🍫🍨 — because “Now is the right time. Delays only make good things sweeter.” 😉 And some sweets too, obviously 😋</p>
+          <p>So today, I’m prescribing a heavy dose of 🎂 + your favourite <strong>Caramia Chocolate Therapy Pint 🍫🍨</strong> —  
+          because clinical trials show “delayed sweetness increases overall satisfaction levels.” 😉</p>
 
-          <p>This time, I’ll try something different — like you use coding terms, I’ll use medical ones 😎🩺</p>
+          <p>This time, I’ll speak in medical terms — since you speak in code 😎🩺</p>
 
-          <p>There are very few things in life that actually make me this excited — and idk why, but this trip with you is one of them 😭🔥. Like I keep randomly imagining how much fun it’s gonna be — but then I remember… “Tu hain kya hi karein 😤” 😂</p>
+          <p>There are very few triggers that cause a real <strong>dopamine surge</strong>, but this <em>trip with you</em> is definitely one of them 😭🔥  
+          Random neural impulses keep firing: “Kitna mazza aayega!” — but then reality hits like a low-BP case: “tujhe hi time nahi hain 😤” 😂</p>
 
-          <p>Anyway — thank you for always being there 💙 For constantly motivating me and helping me so much in this content creation journey. Even when I was alone, I never felt alone — because you were just one call away ☎️</p>
+          <p>Anyway — thank you for always being my <strong>mental IV drip</strong> and <strong>24x7 on-call emotional support</strong> 💙  
+          You give constant serotonin boosts during my content-creation burnout phases. Even during my worst mental OPD hours, you show up without an appointment ☎️</p>
 
-          <p>Whether it was office rants, random ideas, or life problems — you’ve literally heard it all 😭. And honestly, mad respect for what you’re doing 🙌 People don’t even realize how much doctors struggle — especially you — juggling everything on zero sleep and still showing up.</p>
+          <p>Thank you for sending daily clinical updates — sunsets 🌇, rainbows 🌈, festival vibes 🎉, newborn videos 👶, and the chaotic-but-legendary hospital OOTDs after 36-hour shifts 😭</p>
 
-          <p>Bhai I genuinely feel ki tujhe duniya ki saari achhi chizein experience karni chahiye — (mere saath ofc 😎). I genuinely wish our friendship stays the same forever ❤️</p>
+          <p>Whether it was office rants, random ideas, or emergency-level life problems — you’ve heard it all. Tu genuinely <strong>bohot acchi listener</strong> hai — zero toxicity, 100% empathy (WHO-approved human). 😭❤️</p>
 
-          <p>Thank you for staying for so long 🙏 Please hamesha khush reh — aur aur bhi zyada share kar, aur apne saare dreams pure karte reh 🌟💫</p>
+          <p>Mad respect for what you do 🙌 Intern life = chronic sleep deprivation + pressure, yet you show up with stable vitals every day. Your NGO dream? That’s a surgical strike of kindness on humanity ❤️</p>
 
-          <p style={{ marginTop: '12px', fontWeight: 700 }}>Nazar na lage bas 🧿</p>
+          <p>Bhai, I honestly feel ki tujhe duniya ki saari positive experiences milni chahiye — <strong>(mere saath ofc 😎)</strong>  
+          I wish our friendship stays <strong>hemodynamically stable</strong> forever ❤️</p>
+
+          <p>Thank you for staying in my long-term therapy plan 🙏 Please <strong>hamesha khush reh</strong>, keep your happiness within normal limits, and keep achieving all your dream outcomes 🌟💫</p>
+
+          <p style={{ marginTop: 12, fontWeight: 700 }}>Tu literally <em>best insaan</em> — rare species, no toxicity detected. Nazar na lage bas 🧿</p>
         </div>
       </div>
 
       {activeIndex !== null && (
-        <div className={styles.lightboxOverlay} onClick={closeLightbox}>
-          <button className={styles.lightboxClose} onClick={closeLightbox} aria-label="Close">×</button>
-          <button className={styles.lightboxPrev} onClick={showPrev} aria-label="Previous">‹</button>
-          <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
-            <img src={images[activeIndex]} alt={`collage-large-${activeIndex + 1}`} className={styles.lightboxImage} />
-            <div className={styles.lightboxCaption}>Image {activeIndex + 1} of {images.length}</div>
+        <div
+          className={styles.lightboxOverlay}
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Image ${activeIndex + 1} preview`}
+        >
+          <button
+            className={styles.lightboxClose}
+            onClick={closeLightbox}
+            aria-label="Close"
+            title="Close"
+          >
+            ×
+          </button>
+
+          <button
+            className={styles.lightboxPrev}
+            onClick={showPrev}
+            aria-label="Previous image"
+            title="Previous"
+          >
+            ‹
+          </button>
+
+          <div
+            className={styles.lightboxContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={images[activeIndex]}
+              alt={`collage-large-${activeIndex + 1}`}
+              className={styles.lightboxImage}
+            />
+            <div className={styles.lightboxCaption}>
+              Image {activeIndex + 1} of {images.length}
+            </div>
           </div>
-          <button className={styles.lightboxNext} onClick={showNext} aria-label="Next">›</button>
+
+          <button
+            className={styles.lightboxNext}
+            onClick={showNext}
+            aria-label="Next image"
+            title="Next"
+          >
+            ›
+          </button>
         </div>
       )}
     </div>
